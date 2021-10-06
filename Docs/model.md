@@ -54,13 +54,13 @@ class Board : MonoBehaviour
 {
   /* 2D array storing all board pieces
    */
-	private Piece[,] layout;
+  private Piece[,] layout;
 
   /* Holds the position of the top left tile
    * Used to convert 3D positions to 2D grid positions
    */
   private Transform topLeftAnchor;
-  
+
   private GameController controller;
 
   void Awake()
@@ -70,7 +70,7 @@ class Board : MonoBehaviour
      * Move this to a factory class if design patterns get marks
      */
   }
-  
+
   public void SetController(GameController)
   {
     /*
@@ -87,16 +87,16 @@ class Board : MonoBehaviour
   {
     /* If layout.ValidateBoard() is valid, end turn
      * Otherwise revert move and let turn continue
-		 */
+     */
   }
 
   private bool Validate()
   {
     /* Make sure each team has pieces
      * Make sure each Piece in layout has valid destinations
-		 */
+     */
   }
-  
+
   private Vector2[] GenerateValidDestinations(Piece)
   {
     /* Iterate over the 8 squares surrounding Piece.position
@@ -122,16 +122,16 @@ class Board : MonoBehaviour
 ```c#
 class Player
 {
-	List<Piece> activePieces;
-  
+  List<Piece> activePieces;
+
   void AddPiece(Piece)
   {
-    
+
   }
-  
+
   void RemovePiece(Piece)
   {
-    
+
   }
 }
 ```
@@ -150,7 +150,7 @@ class Piece : MonoBehaviour
     private Vector3 delta;
     private Vector3 start;
     private float zCoord;
-    
+
     private Move(Vector3, Vector3)
     {
       /* Set start and zCoord
@@ -158,9 +158,9 @@ class Piece : MonoBehaviour
     }
   }
 
-	public Vector2Int position;
+  public Vector2Int position;
   public Vector2Int validDestinations;
-	public TeamColors color;
+  public TeamColors color;
 
   private Board board;
   private Move move;
@@ -210,10 +210,10 @@ class Piece : MonoBehaviour
 ```c#
 class GameCamera
 {
-	void SwitchPerspective()
-	{
-		
-	}
+  void SwitchPerspective()
+  {
+
+  }
 }
 ```
 
@@ -226,8 +226,8 @@ class GameCamera
 ```c#
 public enum TeamColors
 {
-	BLACK,
-	WHITE
+  BLACK,
+  WHITE
 }
 ```
 
