@@ -1,9 +1,13 @@
 # checkers
 
-The `Board` model is defined as a 2D array of `Piece` objects (each is an instance of GameObject). Each `Piece` position is defined as a 2D vector (`Vector2Int`). Positions are defined relative to the top left corner of the board as show below. The red dot represents the position of `Board.topLeftAnchor` (used to convert 3D positions to array positions)
+The `Board` model is defined as a 2D array of `Piece` objects (each is an instance of GameObject). Each `Piece` position is defined as a 2D vector (`Vector2Int`). Positions are defined relative to the top left corner of the board as show below. The orange dot represents the position of `Board.topLeftAnchor` (used to convert 3D positions to array positions)
 
-<img src="/Users/aj/Pictures/Typora/image-20211005220005180.png" alt="image-20211005220005180" style="zoom:25%;" />
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/45947696/136303928-88fd4737-11ad-495b-aa67-3c8b99529909.png" width="60%" >
+</p>
 
+
+<br>
 
 
 ```c#
