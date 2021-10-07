@@ -1,5 +1,9 @@
 # checkers
 
+The `Board` model is defined as a 2D array of `Piece` objects (each is an instance of GameObject). Each `Piece` position is defined as a 2D vector (`Vector2Int`). Positions are defined relative to the top left corner of the board as show below. The red dot represents the position of `Board.topLeftAnchor` (used to convert 3D positions to array positions)
+
+<img src="/Users/aj/Pictures/Typora/image-20211005220005180.png" alt="image-20211005220005180" style="zoom:25%;" />
+
 
 
 ```c#
@@ -21,24 +25,31 @@ class GameController : MonoBehaviour
 
   }
 
-  void StartGame()
+  public void StartGame()
   {
 
   }
 
-  void EndGame()
+  public void EndGame()
   {
 
   }
 
-  void StartTurn()
+  public void StartTurn()
   {
 
   }
 
-  void EndTurn()
+  public void EndTurn()
   {
 
+  }
+
+  public void RemovePiece(Piece)
+  {
+    /* Check if Piece is white or black
+     * Remove it from the associated player
+     */
   }
 }
 ```
@@ -57,23 +68,26 @@ class Board : MonoBehaviour
   private Piece[,] layout;
 
   /* Holds the position of the top left tile
-   * Used to convert 3D positions to 2D grid positions
    */
-  private Transform topLeftAnchor;
+  private static Transform topLeftAnchor;
+
+  /* Used with topLeftAnchor to convert 3D positions to 2D grid positions
+   */
+  private static float boardSquareSize;
 
   private GameController controller;
 
   void Awake()
   {
-    layout = new Piece[8,8];
-    /* Initialize the piece prefabs with the Piece MonoBehaviour
+    /* layout = new Piece[8,8];
+     * Initialize the piece prefabs with the Piece MonoBehaviour
      * Move this to a factory class if design patterns get marks
      */
   }
 
-  public void SetController(GameController)
+  public void SetController(GameController gameController)
   {
-    /*
+    /* controller = gameController;
      */
   }
 
@@ -85,29 +99,63 @@ class Board : MonoBehaviour
 
   public void DeselectPiece(Piece)
   {
-    /* If layout.ValidateBoard() is valid, end turn
+    /* ProcessMove()
+     * If IsBoardValid() is true, controller.EndTurn
      * Otherwise revert move and let turn continue
      */
   }
 
-  private bool Validate()
+  private void ProcessMove(Piece piece)
+  {
+    /* Compare Piece.currentPosition and previousPosition
+     * If currentPosition is null, Piece has been moved off board (call ReverseMove())
+     * Check if WasPieceCaptured()
+     * board.AlignPieceInSquare(piece)
+     */
+  }
+
+  private Piece WasPieceCaptured(Vector2Int previousPos, Vector2Int currentPos)
+  {
+    /* Check if previous and current position have a difference of 2
+     * Difference of 2 implies a jump was made
+     * If difference is 2, return the Piece that was captured
+     * Otherwise return null
+     */
+  }
+
+  private void ReverseMove(Piece)
+  {
+    /* Use piece.previousPosition to
+     */
+  }
+
+  private bool IsBoardValid()
   {
     /* Make sure each team has pieces
      * Make sure each Piece in layout has valid destinations
      */
   }
 
-  private Vector2[] GenerateValidDestinations(Piece)
+  private List<Vector2Int> GenerateValidDestinations(Piece)
   {
-    /* Iterate over the 8 squares surrounding Piece.position
+    /* Iterate over the 8 squares surrounding Piece.currentPosition
      * Return list of valid move destinations
      */
   }
 
-  private Vector2Int FlattenVector(Vector3)
+  private static Vector2Int FlattenVector(Vector3)
   {
     /* Convert a 3D vector from click position
      * to a 2D vector representing a board position
+     * using topLeftAnchor and boardSquareSize
+     * Return null if Vector3 is outside the board
+     */
+  }
+
+  private static void AlignPieceInSquare(Piece)
+  {
+    /* Move Piece's gameObject to the center of the square
+     * Current square is stored in Piece.currentPosition
      */
   }
 }
@@ -122,14 +170,26 @@ class Board : MonoBehaviour
 ```c#
 class Player
 {
-  List<Piece> activePieces;
+  private List<Piece> activePieces;
 
-  void AddPiece(Piece)
+  public void AddPiece(Piece)
+  {
+    /* Add Piece to activePieces
+     */
+  }
+
+  public void RemovePiece(Piece)
+  {
+    /* Remove Piece from activePieces
+     */
+  }
+
+  public boolean HasPieces()
   {
 
   }
 
-  void RemovePiece(Piece)
+  public boolean HasMoves()
   {
 
   }
@@ -145,25 +205,13 @@ class Player
 ```c#
 class Piece : MonoBehaviour
 {
-  private struct Move
-  {
-    private Vector3 delta;
-    private Vector3 start;
-    private float zCoord;
-
-    private Move(Vector3, Vector3)
-    {
-      /* Set start and zCoord
-       */
-    }
-  }
-
-  public Vector2Int position;
-  public Vector2Int validDestinations;
   public TeamColors color;
+  public Vector2Int currentPosition;
+  public Vector2Int previousPosition;
+  public Vector2Int validDestinations;
 
   private Board board;
-  private Move move;
+  private PieceMove currentMove;
 
   void OnMouseDown()
   {
@@ -182,24 +230,56 @@ class Piece : MonoBehaviour
 
   void onMouseUp()
   {
-    /* SetPosition(...)
+    /* SetPosition(...) of the piece
      * board.DeselectPiece(this);
      */
   }
 
-  public void SetPosition(Vector3)
+  public void SetPosition(Vector3 newPosition)
   {
     /* Use board.FlattenVector() to set position
+     * previousPosition = currentPosition;
+     * currentPosition = newPosition;
+     */
+  }
+
+  public void UndoMove()
+  {
+    /* Apply the opposite of currentMove to the gameObject
+     * board.AlignPieceInSquare(this)
      */
   }
 
   public void ResetPosition()
   {
-    /* Do the opposite of move vector
+    /* Apply the opposite of currentMove vector to gameObject
      */
   }
 }
 ```
+
+
+
+---
+
+
+
+```csharp
+private struct PieceMove
+{
+  private Vector3 delta;
+  private Vector3 start;
+  private float zCoord;
+
+  private Move(Vector3 start, Vector3 zCoord)
+  {
+    /* Set start and zCoord
+    */
+  }
+}
+```
+
+
 
 
 
