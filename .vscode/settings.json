@@ -1,0 +1,13 @@
+{
+  "omnisharp.enableRoslynAnalyzers": true,
+  "omnisharp.enableEditorConfigSupport": true,
+  "omnisharp.useEditorFormattingSettings": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true
+}
