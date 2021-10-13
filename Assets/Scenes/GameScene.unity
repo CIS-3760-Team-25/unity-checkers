@@ -198,9 +198,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  startPosition: {x: 5, y: 3}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &105406099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -276,9 +278,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  startPosition: {x: 6, y: 4}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &147018775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -354,9 +358,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  startPosition: {x: 5, y: 5}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1 &210309358
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,9 +504,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  startPosition: {x: 1, y: 5}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &453811387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -576,9 +584,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  startPosition: {x: 7, y: 3}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &490326503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -654,9 +664,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  startPosition: {x: 1, y: 3}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &565267370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -732,9 +744,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  startPosition: {x: 0, y: 2}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &743439794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -810,9 +824,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  startPosition: {x: 1, y: 1}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &804290388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -888,9 +904,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  startPosition: {x: 6, y: 0}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &856341444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -966,9 +984,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  startPosition: {x: 5, y: 7}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &858063897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1044,9 +1064,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  startPosition: {x: 0, y: 4}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &1154912923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1122,9 +1144,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  startPosition: {x: 2, y: 4}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &1162838064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1200,9 +1224,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  startPosition: {x: 6, y: 6}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &1205562815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1278,9 +1304,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  startPosition: {x: 2, y: 0}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &1224691190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1356,9 +1384,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  startPosition: {x: 1, y: 7}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
+--- !u!65 &1224691193
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224691191}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2583108, y: 0.28319162, z: 1.2583108}
+  m_Center: {x: 0, y: 0.0009132698, z: 0}
 --- !u!1001 &1224812387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1434,9 +1477,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  startPosition: {x: 5, y: 1}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &1284168617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1512,9 +1557,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  startPosition: {x: 2, y: 2}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1 &1288507729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1683,9 +1730,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  startPosition: {x: 6, y: 2}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &1395814379
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1761,9 +1810,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  startPosition: {x: 0, y: 0}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &1425914297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1842,6 +1893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373ef59e365ce42ceabf4f4a620db193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieces: []
 --- !u!1001 &1459173335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1917,9 +1969,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  startPosition: {x: 2, y: 6}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &1702224485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1995,9 +2049,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  startPosition: {x: 7, y: 1}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1001 &1703220717
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2073,9 +2129,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
+  startPosition: {x: 0, y: 6}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1 &1797956441
 GameObject:
   m_ObjectHideFlags: 0
@@ -2181,9 +2239,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  startPosition: {x: 7, y: 7}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0
 --- !u!1 &2032790532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,6 +2402,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 1
+  startPosition: {x: 7, y: 5}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: {x: 0, y: 0}
+  validDestinations: []
+  isActive: 0

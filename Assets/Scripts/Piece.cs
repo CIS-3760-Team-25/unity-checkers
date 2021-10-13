@@ -1,15 +1,23 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Piece : MonoBehaviour
 {
   public TeamColors color;
+  public Vector2Int startPosition;
   public Vector2Int currentPosition;
   public Vector2Int previousPosition;
-  public Vector2Int validDestinations;
+  public List<Vector2Int> validDestinations;
+  public bool isActive;
 
   private Board board;
   private PieceMove currentMove;
+
+  void Awake()
+  {
+    this.startPosition = currentPosition;
+  }
 
   void OnMouseDown()
   {
@@ -23,6 +31,7 @@ public class Piece : MonoBehaviour
     /* Update Move
      * Some draggable object code:
      * https://www.patreon.com/posts/unity-3d-drag-22917454
+     * Piece shouldn't be draggable if not active
      */
   }
 
