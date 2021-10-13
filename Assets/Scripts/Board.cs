@@ -4,17 +4,18 @@ using System.Collections.Generic;
 
 public class Board : MonoBehaviour
 {
-  /* 2D array storing all board pieces
-   */
-  public Piece[,] layout = new Piece[8,8];
-
   /* Holds the position of the top left tile
    */
   private static Transform topLeftAnchor;
 
   /* Used with topLeftAnchor to convert 3D positions to 2D grid positions
    */
-  private static float boardSquareSize;
+  private const float boardSquareSize = 2.0F;
+
+  /* 2D array storing all board pieces
+   */
+  public Piece[,] layout;
+  public Piece[] pieces;
 
   private GameController controller;
 
@@ -62,13 +63,13 @@ public class Board : MonoBehaviour
      * If difference is 2, return the Piece that was captured
      * Otherwise return null
      */
-     return null;
+    return null;
   }
 
   private void RemovePiece(Piece piece)
   {
-    /* Check if Piece is white or black
-     * Remove it from the associated player
+    /* Set piece.isActive to false
+     *
      */
   }
 
@@ -83,7 +84,7 @@ public class Board : MonoBehaviour
     /* Make sure each team has pieces
      * Make sure each Piece in layout has valid destinations
      */
-     return false;
+    return false;
   }
 
   private List<Vector2Int> GenerateValidDestinations(Piece piece)
@@ -91,7 +92,7 @@ public class Board : MonoBehaviour
     /* Iterate over the 8 squares surrounding Piece.currentPosition
      * Return list of valid move destinations
      */
-     return new List<Vector2Int>();
+    return new List<Vector2Int>();
   }
 
   private static Vector2Int FlattenVector(Vector3 vector3)
@@ -101,7 +102,7 @@ public class Board : MonoBehaviour
      * using topLeftAnchor and boardSquareSize
      * Return null if Vector3 is outside the board
      */
-     return new Vector2Int();
+    return new Vector2Int();
   }
 
   private static void AlignPieceInSquare(Piece piece)
