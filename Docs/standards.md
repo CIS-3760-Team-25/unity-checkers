@@ -7,6 +7,7 @@
 - Restart VS Code so Prettier detects C# formatter
 - Don't make/commit changes to `.vscode/settings.json`
 
+
 ### Development Process
 
 1. Pick up a task in [the current sprint](https://github.com/orgs/CIS-3760-Team-25/projects). Assign the issue to yourself and move the kanban item from To Do to In Progress
@@ -23,9 +24,14 @@
    git commit -m "Some message"
    ```
 
-4. Test the changes you made (manually or automated)
+4. While working make sure to pull new changes from the repo so your code is up to date. Resolve merge conflicts carefully
+   ```bash
+   git pull origin main
+   ```
 
-5. Push your code to GitHub
+5. Test the changes you made (manually or automated)
+
+6. Push your code to GitHub
 
    ```bash
    git push origin <branch-name>
@@ -52,4 +58,6 @@
 
 10. Make sure the issue associated with your story is closed and that the kanban board is updated
 
-11. _More on creating Pull Requests [here](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)_
+
+### Links
+- Creating Pull Requests: https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
