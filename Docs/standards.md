@@ -1,5 +1,9 @@
 # Coding Standards
 
+### C# Best Practices
+- Refer to [CC# Best Practices]https://www.dofactory.com/csharp-coding-standards for Coding Standards
+- No Tabs, use 2 spaces
+
 ### VS Code Configuration
 
 - Install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) for VS Code
