@@ -25,6 +25,27 @@ public class Board : MonoBehaviour
      * Initialize the piece prefabs with the Piece MonoBehaviour
      * Move this to a factory class if design patterns get marks
      */
+    layout = new Piece[8, 8];
+    pieces = (Piece[])FindObjectsOfType(typeof(Piece));
+
+    foreach (Piece piece in pieces)
+    {
+      int pieceX = piece.startPosition.x;
+      int pieceY = piece.startPosition.y;
+
+      layout[pieceX, pieceY] = piece;
+
+      piece.SetBoard(this);
+    }
+
+    for (int r = 0; r < layout.GetLength(0); r++)
+    {
+      for (int c = 0; c < layout.GetLength(1); c++)
+      {
+        if (layout[r, c])
+          Debug.Log($"{layout[r, c].startPosition.x}, {layout[r, c].startPosition.y}");
+      }
+    }
   }
 
   public void SetController(GameController gameController)

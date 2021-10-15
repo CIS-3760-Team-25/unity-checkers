@@ -19,27 +19,40 @@ public class Piece : MonoBehaviour
     this.currentPosition = startPosition;
   }
 
+  void Start()
+  {
+    // Set Board as parent
+    gameObject.transform.SetParent(board.transform);
+  }
+
   void OnMouseDown()
   {
-    /* Create new Move
-     * board.SelectPiece(this);
-     */
+    currentMove = new PieceMove();
+    currentMove.start = gameObject.transform.position;
+    currentMove.zCoord = Camera.main.WorldToScreenPoint(currentMove.start).z;
+    currentMove.offset = currentMove.start - GetCurrentPosition();
+
+    Debug.Log($"Piece at ({currentPosition.x}, {currentPosition.y}) clicked");
   }
 
   void OnMouseDrag()
   {
-    /* Update Move
-     * Some draggable object code:
-     * https://www.patreon.com/posts/unity-3d-drag-22917454
-     * Piece shouldn't be draggable if not active
-     */
+    transform.position = GetCurrentPosition() + currentMove.offset;
   }
 
-  void onMouseUp()
+  void OnMouseUp()
   {
+    transform.position = currentMove.start;
+
+    Debug.Log($"Piece at ({currentPosition.x}, {currentPosition.y}) released");
     /* SetPosition(...) of the piece
      * board.DeselectPiece(this);
      */
+  }
+
+  public void SetBoard(Board gameBoard)
+  {
+    board = gameBoard;
   }
 
   public void SetPosition(Vector3 newPosition)
@@ -61,5 +74,16 @@ public class Piece : MonoBehaviour
   {
     /* Apply the opposite of currentMove vector to gameObject
      */
+  }
+
+  private Vector3 GetCurrentPosition()
+  {
+    Vector3 currentPosition = new Vector3(
+      Input.mousePosition.x,
+      Input.mousePosition.y,
+      currentMove.zCoord
+    );
+
+    return Camera.main.ScreenToWorldPoint(currentPosition);
   }
 }
