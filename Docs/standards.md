@@ -1,8 +1,8 @@
 # Coding Standards
 
 ### C# Best Practices
-- Refer to [CC# Best Practices]https://www.dofactory.com/csharp-coding-standards for Coding Standards
-- No Tabs, use 2 spaces
+- Refer to [CC# Best Practices](https://www.dofactory.com/csharp-coding-standards) for Coding Standards
+- No tabs, use 2 spaces instead
 
 ### VS Code Configuration
 
