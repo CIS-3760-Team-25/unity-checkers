@@ -11,6 +11,7 @@ _ex. Closes #0_
 
 - [ ] Code compiles
 - [ ] Code conforms to coding standards (formatted/linted)
+- [ ] Code is properly documented (comments, model updated)
 - [ ] Code has been tested and the testing method is documented in this PR
 - [ ] Code doesn't introduce any new bugs
 - [ ] Code is reviewed by at least 2 people
