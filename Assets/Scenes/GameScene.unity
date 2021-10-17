@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465934, g: 0.49642956, b: 0.5748249, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2141,6 +2141,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pieces: []
+--- !u!4 &1425914302 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 0854dea90b5618944b733c40170310dc, type: 3}
+  m_PrefabInstance: {fileID: 1425914297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1459173335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2554,6 +2559,7 @@ GameObject:
   - component: {fileID: 2032790535}
   - component: {fileID: 2032790534}
   - component: {fileID: 2032790533}
+  - component: {fileID: 2032790536}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2594,7 +2600,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 50.5
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2619,13 +2625,29 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2032790532}
-  m_LocalRotation: {x: 0.4881358, y: -0, z: -0, w: 0.8727677}
-  m_LocalPosition: {x: 7.22, y: 13.08, z: -2.42}
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 58.436, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+--- !u!114 &2032790536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032790532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 722c5c13c8e01c944af0f558569f68ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panSpeed: 20
+  target: {fileID: 1425914302}
+  offset: {x: 0, y: 20, z: 0}
+  angle: 0
 --- !u!1001 &2086432065
 PrefabInstance:
   m_ObjectHideFlags: 0
