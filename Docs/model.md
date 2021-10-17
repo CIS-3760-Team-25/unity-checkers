@@ -1,14 +1,11 @@
 # checkers
 
-The `Board` model is defined as a 2D array of `Piece` objects (each is an instance of GameObject). Each `Piece` position is defined as a 2D vector (`Vector2Int`). Positions are defined relative to the top left corner of the board as show below. The orange dot represents the position of `Board.topLeftAnchor` (used to convert 3D positions to array positions)
+The `Board` model is defined as a 2D array of `Piece` objects (each is an instance of GameObject). Each `Piece` position is defined as a 2D vector (`Vector2Int`). Positions are defined relative to the bottom left corner of the board as show below. The orange dot represents the position of `Board.bottomLeftAnchor` (used to convert 3D positions to array positions)
 
-<p align="center">
+<p align="center" style="transform: rotate(90)">
   <img src="https://user-images.githubusercontent.com/45947696/136303928-88fd4737-11ad-495b-aa67-3c8b99529909.png" width="60%" >
 </p>
-
-
 <br>
-
 
 ```c#
 /* Controls the flow of the app
@@ -26,27 +23,22 @@ class GameController : MonoBehaviour
 
   void Awake()
   {
-
   }
 
   public void StartGame()
   {
-
   }
 
   public void EndGame()
   {
-
   }
 
   public void StartTurn()
   {
-
   }
 
   public void EndTurn()
   {
-
   }
 
   public void RemovePiece(Piece)
@@ -58,11 +50,7 @@ class GameController : MonoBehaviour
 }
 ```
 
-
-
 ---
-
-
 
 ```c#
 class Board : MonoBehaviour
@@ -73,7 +61,7 @@ class Board : MonoBehaviour
 
   /* Holds the position of the top left tile
    */
-  private static Transform topLeftAnchor;
+  private static Transform BottomLeftAnchor;
 
   /* Used with topLeftAnchor to convert 3D positions to 2D grid positions
    */
@@ -133,43 +121,23 @@ class Board : MonoBehaviour
      */
   }
 
-  private bool IsBoardValid()
+  private bool IsGamePlayable()
   {
     /* Make sure each team has pieces
      * Make sure each Piece in layout has valid destinations
      */
   }
 
-  private List<Vector2Int> GenerateValidDestinations(Piece)
+  private void GenerateValidDestinations(Piece)
   {
     /* Iterate over the 8 squares surrounding Piece.currentPosition
-     * Return list of valid move destinations
-     */
-  }
-
-  private static Vector2Int FlattenVector(Vector3)
-  {
-    /* Convert a 3D vector from click position
-     * to a 2D vector representing a board position
-     * using topLeftAnchor and boardSquareSize
-     * Return null if Vector3 is outside the board
-     */
-  }
-
-  private static void AlignPieceInSquare(Piece)
-  {
-    /* Move Piece's gameObject to the center of the square
-     * Current square is stored in Piece.currentPosition
+     * Set piece.validDestinations
      */
   }
 }
 ```
 
-
-
 ---
-
-
 
 ```c#
 class Player
@@ -200,11 +168,7 @@ class Player
 }
 ```
 
-
-
 ---
-
-
 
 ```c#
 class Piece : MonoBehaviour
@@ -262,34 +226,18 @@ class Piece : MonoBehaviour
 }
 ```
 
-
-
 ---
-
-
 
 ```csharp
 private struct PieceMove
 {
-  private Vector3 delta;
   private Vector3 start;
+  private Vector3 delta;
   private float zCoord;
-
-  private Move(Vector3 start, Vector3 zCoord)
-  {
-    /* Set start and zCoord
-    */
-  }
 }
 ```
 
-
-
-
-
 ---
-
-
 
 ```c#
 class GameCamera
@@ -301,11 +249,7 @@ class GameCamera
 }
 ```
 
-
-
 ---
-
-
 
 ```c#
 public enum TeamColors
@@ -315,3 +259,24 @@ public enum TeamColors
 }
 ```
 
+---
+
+_This functionality can be moved out of Board eventually_
+
+```c#
+public class BoardUtils
+{
+  public static int BoardSize;
+  public static float BoardSquareSize;
+  public static Transform topLeftAnchor;
+
+  public Vector2Int VectorToBoardPosition(Vector3 vector3)
+  {
+  }
+
+  // Used for aligning pieces and indicators
+  private void AlignObjectInSquare(Piece piece)
+  {
+  }
+}
+```
