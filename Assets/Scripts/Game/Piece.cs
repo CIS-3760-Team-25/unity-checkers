@@ -18,13 +18,12 @@ public class Piece : MonoBehaviour
   {
     // Set Board as parent
     gameObject.transform.SetParent(board.transform);
-
-    currentPosition = startPosition;
-    previousPosition = startPosition;
   }
 
   void OnMouseDown()
   {
+    board.SelectPiece(this);
+
     currentMove = new PieceMove();
     currentMove.start = gameObject.transform.position;
     currentMove.zCoord = Camera.main.WorldToScreenPoint(currentMove.start).z;

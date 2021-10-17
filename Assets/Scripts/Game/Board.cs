@@ -12,25 +12,19 @@ public class Board : MonoBehaviour
   private GameController controller;
 
   private Piece[,] layout;
-  private Piece[] pieces;
+  private List<Piece> pieces;
 
   private const int BoardSize = 8;
   private const float BoardSquareSize = 2.0F;
 
   void Awake()
   {
-    layout = new Piece[8, 8];
-    pieces = (Piece[])FindObjectsOfType(typeof(Piece));
+    InitializeBoard();
+  }
 
-    foreach (Piece piece in pieces)
-    {
-      int pieceX = piece.startPosition.x;
-      int pieceY = piece.startPosition.y;
-
-      layout[pieceX, pieceY] = piece;
-
-      piece.SetBoard(this);
-    }
+  void OnValidate()
+  {
+    InitializeBoard();
   }
 
   public void SetController(GameController gameController)
@@ -41,8 +35,12 @@ public class Board : MonoBehaviour
 
   public void SelectPiece(Piece piece)
   {
-    /* Display indicators on valid destination squares
-     */
+    piece.validDestinations.ForEach(
+      (Vector2Int pos) =>
+      {
+        Debug.Log($" > {pos}");
+      }
+    );
   }
 
   public void DeselectPiece(Piece piece)
@@ -52,7 +50,7 @@ public class Board : MonoBehaviour
     if (ProcessMove(piece))
     {
       AlignPieceInSquare(piece);
-      FindValidDestinations(piece);
+      FindAllValidMoves();
 
       if (IsGamePlayable())
       {
@@ -69,32 +67,37 @@ public class Board : MonoBehaviour
     }
   }
 
+  private void InitializeBoard()
+  {
+    layout = new Piece[8, 8];
+    // Find all piece prefabs
+    pieces = new List<Piece>(
+      (Piece[])FindObjectsOfType(typeof(Piece))
+    );
+
+    pieces.ForEach((Piece piece) =>
+      {
+        piece.currentPosition = piece.startPosition;
+        piece.previousPosition = piece.startPosition;
+        // Add pieces to board model
+        layout[piece.startPosition.x, piece.startPosition.y] = piece;
+        // Connect piece to board
+        piece.SetBoard(this);
+      }
+    );
+
+    FindAllValidMoves();
+  }
+
   private bool ProcessMove(Piece piece)
   {
-    int px0 = piece.previousPosition.x;
-    int py0 = piece.previousPosition.y;
-    int px1 = piece.currentPosition.x;
-    int py1 = piece.currentPosition.y;
-    int dx = Math.Abs(px1 - px0);
-    int dy = Math.Abs(py1 - py0);
-
-    // Check if piece in in board bounds
-    if (px1 < 0 || py1 < 0 || px1 >= BoardSize || py1 >= BoardSize)
-    {
-      return false;
-    }
-    // Check that a piece isn't already in the square
-    if (layout[px1, py1] != null)
+    if (!piece.validDestinations.Contains(piece.currentPosition))
     {
       return false;
     }
 
-    // Check dx and dy (switch)
-    // Check if piece was captured
-
-    // Update model
-    layout[px0, py0] = null;
-    layout[px1, py1] = piece;
+    layout[piece.previousPosition.x, piece.previousPosition.y] = null;
+    layout[piece.currentPosition.x, piece.currentPosition.y] = piece;
 
     return true;
   }
@@ -139,18 +142,83 @@ public class Board : MonoBehaviour
     piece.currentPosition = boardPosition;
   }
 
-  private void FindValidDestinations(Piece piece)
+  private void FindValidMoves(Piece piece)
   {
-    /* Iterate over the 8 squares surrounding Piece.currentPosition
-     * Return list of valid move destinations
-     */
+    piece.validDestinations.Clear();
+
+    int direction = piece.color == TeamColors.WHITE ? -1 : 1;
+
+    // Left and right is from the black player's perspective
+    Vector2Int left = new Vector2Int(
+      piece.currentPosition.x - 1,
+      piece.currentPosition.y + (1 * direction)
+    );
+    Vector2Int right = new Vector2Int(
+      piece.currentPosition.x + 1,
+      piece.currentPosition.y + (1 * direction)
+    );
+
+    // TODO: Refactor this once indicators are showing
+    if (IsPositionOnBoard(left))
+    {
+      Piece leftSquarePiece = GetPieceAtPosition(left);
+
+      if (leftSquarePiece == null)
+      {
+        piece.validDestinations.Add(left);
+      }
+      else if (leftSquarePiece.color != piece.color)
+      {
+        Vector2Int leftJump = left + new Vector2Int(-1, direction);
+
+        if (IsPositionOnBoard(leftJump) && !GetPieceAtPosition(leftJump))
+        {
+          piece.validDestinations.Add(leftJump);
+        }
+      }
+    }
+
+    if (IsPositionOnBoard(right))
+    {
+      Piece rightSquarePiece = GetPieceAtPosition(right);
+
+      if (rightSquarePiece == null)
+      {
+        piece.validDestinations.Add(right);
+      }
+      else if (rightSquarePiece.color != piece.color)
+      {
+        Vector2Int rightJump = right + new Vector2Int(1, direction);
+
+        if (IsPositionOnBoard(rightJump) && !GetPieceAtPosition(rightJump))
+        {
+          piece.validDestinations.Add(rightJump);
+        }
+      }
+    }
+  }
+
+  private void FindAllValidMoves()
+  {
+    pieces.ForEach((Piece p) => FindValidMoves(p));
+  }
+
+  private Piece GetPieceAtPosition(Vector2Int position)
+  {
+    return layout[position.x, position.y];
   }
 
   private void AlignPieceInSquare(Piece piece)
   {
-    int pX = 1 + (2 * piece.currentPosition.x);
-    int pY = 1 + (2 * piece.currentPosition.y);
+    piece.transform.position = new Vector3(
+      1 + (2 * piece.currentPosition.x),
+      piece.transform.position.y,
+      1 + (2 * piece.currentPosition.y)
+    );
+  }
 
-    piece.transform.position = new Vector3(pX, piece.transform.position.y, pY);
+  private bool IsPositionOnBoard(Vector2Int p)
+  {
+    return !(p.x < 0 || p.y < 0 || p.x >= BoardSize || p.y >= BoardSize);
   }
 }
