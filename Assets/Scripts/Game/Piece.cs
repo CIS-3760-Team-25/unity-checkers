@@ -1,28 +1,26 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+  public bool isActive;
   public TeamColors color;
   public Vector2Int startPosition;
   public Vector2Int currentPosition;
   public Vector2Int previousPosition;
   public List<Vector2Int> validDestinations;
-  public bool isActive;
 
   private Board board;
   private PieceMove currentMove;
-
-  void Awake()
-  {
-    this.currentPosition = startPosition;
-  }
 
   void Start()
   {
     // Set Board as parent
     gameObject.transform.SetParent(board.transform);
+
+    currentPosition = startPosition;
+    previousPosition = startPosition;
   }
 
   void OnMouseDown()
@@ -32,7 +30,7 @@ public class Piece : MonoBehaviour
     currentMove.zCoord = Camera.main.WorldToScreenPoint(currentMove.start).z;
     currentMove.offset = currentMove.start - GetCurrentPosition();
 
-    Debug.Log($"Piece at ({currentPosition.x}, {currentPosition.y}) clicked");
+    Debug.Log($"{gameObject.name} clicked at {currentPosition}");
   }
 
   void OnMouseDrag()
@@ -42,12 +40,9 @@ public class Piece : MonoBehaviour
 
   void OnMouseUp()
   {
-    transform.position = currentMove.start;
+    board.DeselectPiece(this);
 
-    Debug.Log($"Piece at ({currentPosition.x}, {currentPosition.y}) released");
-    /* SetPosition(...) of the piece
-     * board.DeselectPiece(this);
-     */
+    Debug.Log($"{gameObject.name} released at {currentPosition}");
   }
 
   public void SetBoard(Board gameBoard)
@@ -55,25 +50,10 @@ public class Piece : MonoBehaviour
     board = gameBoard;
   }
 
-  public void SetPosition(Vector3 newPosition)
-  {
-    /* Use board.FlattenVector() to set position
-     * previousPosition = currentPosition;
-     * currentPosition = newPosition;
-     */
-  }
-
   public void UndoMove()
   {
-    /* Apply the opposite of currentMove to the gameObject
-     * board.AlignPieceInSquare(this)
-     */
-  }
-
-  public void ResetPosition()
-  {
-    /* Apply the opposite of currentMove vector to gameObject
-     */
+    transform.position = currentMove.start;
+    currentPosition = previousPosition;
   }
 
   private Vector3 GetCurrentPosition()
