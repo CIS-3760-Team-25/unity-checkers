@@ -9,6 +9,14 @@ public class Board : MonoBehaviour
   private List<Piece> pieces;
   private GameController controller;
 
+  [SerializeField]
+  private GameObject whiteIndicator;
+
+  [SerializeField]
+  private GameObject blackIndicator;
+
+  private List<GameObject> activeIndicators;
+
   void Awake()
   {
     InitializeBoard();
@@ -21,27 +29,22 @@ public class Board : MonoBehaviour
 
   public void SetController(GameController gameController)
   {
-    /* controller = gameController;
-     */
+    controller = gameController;
   }
 
   public void SelectPiece(Piece piece)
   {
-    piece.validDestinations.ForEach(
-      (Vector2Int pos) =>
-      {
-        Debug.Log($" > {pos}");
-      }
-    );
+    DisplayIndicators(piece);
   }
 
   public void DeselectPiece(Piece piece)
   {
+    DestroyIndicators();
     UpdatePiecePosition(piece);
 
     if (ProcessMove(piece))
     {
-      BoardUtils.AlignObjectInSquare(piece.gameObject);
+      AlignPieceInSquare(piece);
       FindAllValidMoves();
 
       if (IsGamePlayable())
@@ -66,6 +69,8 @@ public class Board : MonoBehaviour
     pieces = new List<Piece>(
       (Piece[])FindObjectsOfType(typeof(Piece))
     );
+
+    activeIndicators = new List<GameObject>();
 
     pieces.ForEach((Piece piece) =>
       {
@@ -122,72 +127,92 @@ public class Board : MonoBehaviour
   private void UpdatePiecePosition(Piece piece)
   {
     piece.previousPosition = piece.currentPosition;
-    piece.currentPosition = BoardUtils.FlattenVector(piece.transform.position);
-  }
-
-  private void FindValidMoves(Piece piece)
-  {
-    piece.validDestinations.Clear();
-
-    int direction = piece.color == TeamColors.WHITE ? -1 : 1;
-
-    // Left and right is from the black player's perspective
-    Vector2Int left = new Vector2Int(
-      piece.currentPosition.x - 1,
-      piece.currentPosition.y + (1 * direction)
-    );
-    Vector2Int right = new Vector2Int(
-      piece.currentPosition.x + 1,
-      piece.currentPosition.y + (1 * direction)
-    );
-
-    // TODO: Refactor this once indicators are showing
-    if (BoardUtils.IsOnBoard(left))
-    {
-      Piece leftSquarePiece = GetPieceAtPosition(left);
-
-      if (leftSquarePiece == null)
-      {
-        piece.validDestinations.Add(left);
-      }
-      else if (leftSquarePiece.color != piece.color)
-      {
-        Vector2Int leftJump = left + new Vector2Int(-1, direction);
-
-        if (BoardUtils.IsOnBoard(leftJump) && !GetPieceAtPosition(leftJump))
-        {
-          piece.validDestinations.Add(leftJump);
-        }
-      }
-    }
-
-    if (BoardUtils.IsOnBoard(right))
-    {
-      Piece rightSquarePiece = GetPieceAtPosition(right);
-
-      if (rightSquarePiece == null)
-      {
-        piece.validDestinations.Add(right);
-      }
-      else if (rightSquarePiece.color != piece.color)
-      {
-        Vector2Int rightJump = right + new Vector2Int(1, direction);
-
-        if (BoardUtils.IsOnBoard(rightJump) && !GetPieceAtPosition(rightJump))
-        {
-          piece.validDestinations.Add(rightJump);
-        }
-      }
-    }
+    piece.currentPosition = BoardUtils.VectorToPosition(piece.transform.position);
   }
 
   private void FindAllValidMoves()
   {
-    pieces.ForEach((Piece p) => FindValidMoves(p));
+    pieces.ForEach(
+      (Piece piece) =>
+      {
+        piece.validDestinations.Clear();
+
+        /* Direction indicates which way the piece is moving in the layout
+         * Black pieces moving forward is an increase in y value (dir = 1)
+         * White pieces moving forward is a decrease in y value (dir = -1)
+         * Note that "y" refers to Vector2Int.y rn, not gameObject.transform.y
+         */
+        int direction = piece.color == TeamColors.WHITE ? -1 : 1;
+
+        // Check for moves/jumps in the left (-1) and right (1) direction
+        GetMovesInDirection(piece, new Vector2Int(-1, direction));
+        GetMovesInDirection(piece, new Vector2Int(1, direction));
+      }
+    );
+  }
+
+  private void GetMovesInDirection(Piece piece, Vector2Int direction)
+  {
+    Vector2Int move = piece.currentPosition + direction;
+
+    if (BoardUtils.IsPositionOnBoard(move))
+    {
+      Piece pieceInSquare = GetPieceAtPosition(move);
+
+      // If square is empty it's a valid move, otherwise check for jump
+      if (pieceInSquare == null)
+      {
+        piece.validDestinations.Add(move);
+      }
+      else if (pieceInSquare.color != piece.color)
+      {
+        Vector2Int jump = move + direction;
+        // Check that jump position is on the board and empty
+        if (BoardUtils.IsPositionOnBoard(jump) && !GetPieceAtPosition(jump))
+        {
+          piece.validDestinations.Add(jump);
+        }
+      }
+    }
   }
 
   private Piece GetPieceAtPosition(Vector2Int position)
   {
     return layout[position.x, position.y];
+  }
+
+  private void AlignPieceInSquare(Piece piece)
+  {
+    piece.transform.position = new Vector3(
+      1 + (BoardUtils.BoardSquareSize * piece.currentPosition.x),
+      piece.transform.position.y,
+      1 + (BoardUtils.BoardSquareSize * piece.currentPosition.y)
+    );
+  }
+
+  private void DisplayIndicators(Piece piece)
+  {
+    piece.validDestinations.ForEach(
+      (Vector2Int piecePosition) =>
+      {
+        Vector3 position = BoardUtils.PositionToVector(piecePosition);
+
+        if (piece.color == TeamColors.BLACK)
+          activeIndicators.Add(
+            Instantiate(blackIndicator, position, Quaternion.identity)
+          );
+        else
+          activeIndicators.Add(
+            Instantiate(whiteIndicator, position, Quaternion.identity)
+          );
+      }
+    );
+  }
+
+  private void DestroyIndicators()
+  {
+    activeIndicators.ForEach(
+      (GameObject indicator) => Destroy(indicator)
+    );
   }
 }
