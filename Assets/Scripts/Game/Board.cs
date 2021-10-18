@@ -5,17 +5,9 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-  /* Holds the position of the top left tile
-   */
-  [SerializeField]
-  private Transform bottomLeftAnchor;
-  private GameController controller;
-
   private Piece[,] layout;
   private List<Piece> pieces;
-
-  private const int BoardSize = 8;
-  private const float BoardSquareSize = 2.0F;
+  private GameController controller;
 
   void Awake()
   {
@@ -49,7 +41,7 @@ public class Board : MonoBehaviour
 
     if (ProcessMove(piece))
     {
-      AlignPieceInSquare(piece);
+      BoardUtils.AlignObjectInSquare(piece.gameObject);
       FindAllValidMoves();
 
       if (IsGamePlayable())
@@ -129,17 +121,8 @@ public class Board : MonoBehaviour
 
   private void UpdatePiecePosition(Piece piece)
   {
-    Vector3 piecePosition = piece.transform.position;
-    Vector2Int boardPosition = new Vector2Int();
-
-    float dX = piecePosition.x - bottomLeftAnchor.position.x;
-    float dZ = piecePosition.z - bottomLeftAnchor.position.z;
-
-    boardPosition.x = (int)((dX) / BoardSquareSize);
-    boardPosition.y = (int)((dZ) / BoardSquareSize);
-
     piece.previousPosition = piece.currentPosition;
-    piece.currentPosition = boardPosition;
+    piece.currentPosition = BoardUtils.FlattenVector(piece.transform.position);
   }
 
   private void FindValidMoves(Piece piece)
@@ -159,7 +142,7 @@ public class Board : MonoBehaviour
     );
 
     // TODO: Refactor this once indicators are showing
-    if (IsPositionOnBoard(left))
+    if (BoardUtils.IsOnBoard(left))
     {
       Piece leftSquarePiece = GetPieceAtPosition(left);
 
@@ -171,14 +154,14 @@ public class Board : MonoBehaviour
       {
         Vector2Int leftJump = left + new Vector2Int(-1, direction);
 
-        if (IsPositionOnBoard(leftJump) && !GetPieceAtPosition(leftJump))
+        if (BoardUtils.IsOnBoard(leftJump) && !GetPieceAtPosition(leftJump))
         {
           piece.validDestinations.Add(leftJump);
         }
       }
     }
 
-    if (IsPositionOnBoard(right))
+    if (BoardUtils.IsOnBoard(right))
     {
       Piece rightSquarePiece = GetPieceAtPosition(right);
 
@@ -190,7 +173,7 @@ public class Board : MonoBehaviour
       {
         Vector2Int rightJump = right + new Vector2Int(1, direction);
 
-        if (IsPositionOnBoard(rightJump) && !GetPieceAtPosition(rightJump))
+        if (BoardUtils.IsOnBoard(rightJump) && !GetPieceAtPosition(rightJump))
         {
           piece.validDestinations.Add(rightJump);
         }
@@ -206,19 +189,5 @@ public class Board : MonoBehaviour
   private Piece GetPieceAtPosition(Vector2Int position)
   {
     return layout[position.x, position.y];
-  }
-
-  private void AlignPieceInSquare(Piece piece)
-  {
-    piece.transform.position = new Vector3(
-      1 + (2 * piece.currentPosition.x),
-      piece.transform.position.y,
-      1 + (2 * piece.currentPosition.y)
-    );
-  }
-
-  private bool IsPositionOnBoard(Vector2Int p)
-  {
-    return !(p.x < 0 || p.y < 0 || p.x >= BoardSize || p.y >= BoardSize);
   }
 }
