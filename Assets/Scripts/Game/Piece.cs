@@ -18,6 +18,9 @@ public class Piece : MonoBehaviour
   {
     // Set Board as parent
     gameObject.transform.SetParent(board.transform);
+
+    currentPosition = startPosition;
+    previousPosition = startPosition;
   }
 
   void OnMouseDown()
