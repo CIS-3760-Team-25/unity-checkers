@@ -1,30 +1,24 @@
-using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Board : MonoBehaviour
 {
   /* Holds the position of the top left tile
    */
-  private static Transform topLeftAnchor;
-
-  /* Used with topLeftAnchor to convert 3D positions to 2D grid positions
-   */
-  private const float boardSquareSize = 2.0F;
-
-  /* 2D array storing all board pieces
-   */
-  public Piece[,] layout;
-  public Piece[] pieces;
-
+  [SerializeField]
+  private Transform bottomLeftAnchor;
   private GameController controller;
+
+  private Piece[,] layout;
+  private Piece[] pieces;
+
+  private const int BoardSize = 8;
+  private const float BoardSquareSize = 2.0F;
 
   void Awake()
   {
-    /* layout = new Piece[8,8];
-     * Initialize the piece prefabs with the Piece MonoBehaviour
-     * Move this to a factory class if design patterns get marks
-     */
     layout = new Piece[8, 8];
     pieces = (Piece[])FindObjectsOfType(typeof(Piece));
 
@@ -36,15 +30,6 @@ public class Board : MonoBehaviour
       layout[pieceX, pieceY] = piece;
 
       piece.SetBoard(this);
-    }
-
-    for (int r = 0; r < layout.GetLength(0); r++)
-    {
-      for (int c = 0; c < layout.GetLength(1); c++)
-      {
-        if (layout[r, c])
-          Debug.Log($"{layout[r, c].startPosition.x}, {layout[r, c].startPosition.y}");
-      }
     }
   }
 
@@ -62,19 +47,56 @@ public class Board : MonoBehaviour
 
   public void DeselectPiece(Piece piece)
   {
-    /* ProcessMove()
-     * If IsBoardValid() is true, controller.EndTurn
-     * Otherwise revert move and let turn continue
-     */
+    UpdatePiecePosition(piece);
+
+    if (ProcessMove(piece))
+    {
+      AlignPieceInSquare(piece);
+      FindValidDestinations(piece);
+
+      if (IsGamePlayable())
+      {
+        // End turn
+      }
+      else
+      {
+        // End game
+      }
+    }
+    else
+    {
+      piece.UndoMove();
+    }
   }
 
-  private void ProcessMove(Piece piece)
+  private bool ProcessMove(Piece piece)
   {
-    /* Compare Piece.currentPosition and previousPosition
-     * If currentPosition is null, Piece has been moved off board (call ReverseMove())
-     * Check if WasPieceCaptured()
-     * board.AlignPieceInSquare(piece)
-     */
+    int px0 = piece.previousPosition.x;
+    int py0 = piece.previousPosition.y;
+    int px1 = piece.currentPosition.x;
+    int py1 = piece.currentPosition.y;
+    int dx = Math.Abs(px1 - px0);
+    int dy = Math.Abs(py1 - py0);
+
+    // Check if piece in in board bounds
+    if (px1 < 0 || py1 < 0 || px1 >= BoardSize || py1 >= BoardSize)
+    {
+      return false;
+    }
+    // Check that a piece isn't already in the square
+    if (layout[px1, py1] != null)
+    {
+      return false;
+    }
+
+    // Check dx and dy (switch)
+    // Check if piece was captured
+
+    // Update model
+    layout[px0, py0] = null;
+    layout[px1, py1] = piece;
+
+    return true;
   }
 
   private Piece WasPieceCaptured(Vector2Int previousPos, Vector2Int currentPos)
@@ -94,42 +116,41 @@ public class Board : MonoBehaviour
      */
   }
 
-  private void ReverseMove(Piece piece)
-  {
-    /* Use piece.previousPosition to
-     */
-  }
-
-  private bool IsBoardValid()
+  private bool IsGamePlayable()
   {
     /* Make sure each team has pieces
      * Make sure each Piece in layout has valid destinations
      */
-    return false;
+    return true;
   }
 
-  private List<Vector2Int> GenerateValidDestinations(Piece piece)
+  private void UpdatePiecePosition(Piece piece)
+  {
+    Vector3 piecePosition = piece.transform.position;
+    Vector2Int boardPosition = new Vector2Int();
+
+    float dX = piecePosition.x - bottomLeftAnchor.position.x;
+    float dZ = piecePosition.z - bottomLeftAnchor.position.z;
+
+    boardPosition.x = (int)((dX) / BoardSquareSize);
+    boardPosition.y = (int)((dZ) / BoardSquareSize);
+
+    piece.previousPosition = piece.currentPosition;
+    piece.currentPosition = boardPosition;
+  }
+
+  private void FindValidDestinations(Piece piece)
   {
     /* Iterate over the 8 squares surrounding Piece.currentPosition
      * Return list of valid move destinations
      */
-    return new List<Vector2Int>();
   }
 
-  private static Vector2Int FlattenVector(Vector3 vector3)
+  private void AlignPieceInSquare(Piece piece)
   {
-    /* Convert a 3D vector from click position
-     * to a 2D vector representing a board position
-     * using topLeftAnchor and boardSquareSize
-     * Return null if Vector3 is outside the board
-     */
-    return new Vector2Int();
-  }
+    int pX = 1 + (2 * piece.currentPosition.x);
+    int pY = 1 + (2 * piece.currentPosition.y);
 
-  private static void AlignPieceInSquare(Piece piece)
-  {
-    /* Move Piece's gameObject to the center of the square
-     * Current square is stored in Piece.currentPosition
-     */
+    piece.transform.position = new Vector3(pX, piece.transform.position.y, pY);
   }
 }
