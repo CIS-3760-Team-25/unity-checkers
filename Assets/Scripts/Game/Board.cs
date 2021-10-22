@@ -41,31 +41,33 @@ public class Board : MonoBehaviour
   {
     DestroyIndicators();
     UpdatePiecePosition(piece);
-    int turn = -1;
+    //int turn ; a variable to change who's turn it is
     if (ProcessMove(piece))
     {
       AlignPieceInSquare(piece);
       Piece captured = WasPieceCaptured(piece.previousPosition, piece.currentPosition);
-      if (captured!= null)
+      if (captured != null)
       {
-         turn = 1; //keep the turn on current player side 
-        //Look at only the current pieces moves
+       //turn = 1; //keep the turn on current player side 
+       //Look at only the current pieces moves
         RemovePiece(captured);
         ClearMoves();
         //Get the any capture moves for current piece
         FindCaptureMoves(piece);
-         //If no capture moves remain so we allow moves from other pieces 
-        if(piece.validDestinations.Count == 0)
-                {
-                    FindAllValidMoves();
-                    turn = -1; //swap turn
-                }
+        //If no capture moves remain, we allow moves from other pieces 
+        if (piece.validDestinations.Count == 0 || piece.validDestinations == null)
+        {
+          FindAllValidMoves();
+          // turn = -1; //swap turn
+        }
 
        }
        else
        {
           FindAllValidMoves();
-       }
+        // turn = -1; //swap turn
+
+      }
 
       if (IsGamePlayable())
       {
@@ -75,7 +77,8 @@ public class Board : MonoBehaviour
       }
       else
       {
-        // End game
+      // End game
+        controller.EndGame();
       }
     }
     else
@@ -115,6 +118,7 @@ public class Board : MonoBehaviour
       return false;
     }
 
+
     layout[piece.previousPosition.x, piece.previousPosition.y] = null;
     layout[piece.currentPosition.x, piece.currentPosition.y] = piece;
 
@@ -146,7 +150,7 @@ public class Board : MonoBehaviour
 
     }
 
-    private bool IsGamePlayable()
+  private bool IsGamePlayable()
   {
     /* Make sure each team has pieces
      * Make sure each Piece in layout has valid destinations
@@ -182,7 +186,6 @@ public class Board : MonoBehaviour
   }
     private void FindCaptureMoves(Piece piece) 
     {
-      piece.validDestinations.Clear();
       int direction = piece.color == TeamColors.WHITE ? -1 : 1;
       GetCaptureMovesInDirection(piece, new Vector2Int(-1, direction));
       GetCaptureMovesInDirection(piece, new Vector2Int(1, direction));
@@ -229,17 +232,18 @@ public class Board : MonoBehaviour
 
     private void GetCaptureMovesInDirection(Piece piece, Vector2Int direction) 
     {
+
         Vector2Int move = piece.currentPosition + direction;
 
         if (BoardUtils.IsPositionOnBoard(move))
         {
-            Piece pieceInSquare = GetPieceAtPosition(move);
+           Piece pieceInSquare = GetPieceAtPosition(move);
 
-        if (pieceInSquare.color != piece.color)
+        if (pieceInSquare != null && pieceInSquare.color != piece.color)
             {
                 Vector2Int jump = move + direction;
                 // Check that jump position is on the board and empty
-                if (BoardUtils.IsPositionOnBoard(jump) && !GetPieceAtPosition(jump))
+                if (BoardUtils.IsPositionOnBoard(jump) && !GetPieceAtPosition(jump) )
                 {
                     piece.validDestinations.Add(jump);
                 }
