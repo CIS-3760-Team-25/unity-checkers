@@ -55,7 +55,7 @@ public class Board : MonoBehaviour
         //Get the any capture moves for current piece
         FindCaptureMoves(piece);
         //If no capture moves remain, we allow moves from other pieces 
-        if (piece.validDestinations.Count == 0 || piece.validDestinations == null)
+        if (piece.validDestinations.Count == 0)
         {
           FindAllValidMoves();
           // turn = -1; //swap turn
@@ -127,12 +127,11 @@ public class Board : MonoBehaviour
 
   private Piece WasPieceCaptured(Vector2Int previousPos, Vector2Int currentPos)
   {
-
-        /* Check if previous and current position have a difference of 2
-         * Difference of 2 implies a jump was made
-         If difference is 2, return the Piece that was captured
-     * Otherwise return null
-    */
+     /* Check if previous and current position have a difference of 2
+      * Difference of 2 implies a jump was made
+      *If difference is 2, return the Piece that was captured
+      * Otherwise return null
+      */
     if (Math.Abs(currentPos.y - previousPos.y ) ==  2)
     {
        Vector2Int position = previousPos + (currentPos - previousPos) / 2;
@@ -144,11 +143,10 @@ public class Board : MonoBehaviour
 
   private void RemovePiece(Piece piece)
   {
-        layout[piece.currentPosition.x, piece.currentPosition.y] = null;
-        piece.gameObject.SetActive(false);
-        Debug.Log($"Removed piece at {piece.currentPosition.x} , {piece.currentPosition.y}");
-
-    }
+     layout[piece.currentPosition.x, piece.currentPosition.y] = null;
+     piece.gameObject.SetActive(false);
+     Debug.Log($"Removed piece at {piece.currentPosition.x} , {piece.currentPosition.y}");
+  }
 
   private bool IsGamePlayable()
   {
@@ -184,34 +182,32 @@ public class Board : MonoBehaviour
       }
     );
   }
-    private void FindCaptureMoves(Piece piece) 
-    {
-      int direction = piece.color == TeamColors.WHITE ? -1 : 1;
-      GetCaptureMovesInDirection(piece, new Vector2Int(-1, direction));
-      GetCaptureMovesInDirection(piece, new Vector2Int(1, direction));
- 
-    }
 
-    private void ClearMoves() 
-    {
-       pieces.ForEach(
-          (Piece piece) =>
-          {
-              piece.validDestinations.Clear();
+  private void FindCaptureMoves(Piece piece) 
+  {
+    int direction = piece.color == TeamColors.WHITE ? -1 : 1;
+    GetCaptureMovesInDirection(piece, new Vector2Int(-1, direction));
+    GetCaptureMovesInDirection(piece, new Vector2Int(1, direction));
 
-          }
-        );
-    }
+  }
+
+  private void ClearMoves() 
+  {
+    pieces.ForEach(
+      (Piece piece) =>
+      {
+        piece.validDestinations.Clear();
+      }
+    );
+  }
 
 
-    private void GetMovesInDirection(Piece piece, Vector2Int direction)
+  private void GetMovesInDirection(Piece piece, Vector2Int direction)
   {
     Vector2Int move = piece.currentPosition + direction;
-
     if (BoardUtils.IsPositionOnBoard(move))
     {
       Piece pieceInSquare = GetPieceAtPosition(move);
-
       // If square is empty it's a valid move, otherwise check for jump
       if (pieceInSquare == null)
       {
@@ -230,28 +226,25 @@ public class Board : MonoBehaviour
   }
 
 
-    private void GetCaptureMovesInDirection(Piece piece, Vector2Int direction) 
+  private void GetCaptureMovesInDirection(Piece piece, Vector2Int direction) 
+  {
+    Vector2Int move = piece.currentPosition + direction;
+    if (BoardUtils.IsPositionOnBoard(move))
     {
-
-        Vector2Int move = piece.currentPosition + direction;
-
-        if (BoardUtils.IsPositionOnBoard(move))
+      Piece pieceInSquare = GetPieceAtPosition(move);
+      if (pieceInSquare != null && pieceInSquare.color != piece.color)
+      {
+        Vector2Int jump = move + direction;
+        // Check that jump position is on the board and empty
+        if (BoardUtils.IsPositionOnBoard(jump) && !GetPieceAtPosition(jump) )
         {
-           Piece pieceInSquare = GetPieceAtPosition(move);
-
-        if (pieceInSquare != null && pieceInSquare.color != piece.color)
-            {
-                Vector2Int jump = move + direction;
-                // Check that jump position is on the board and empty
-                if (BoardUtils.IsPositionOnBoard(jump) && !GetPieceAtPosition(jump) )
-                {
-                    piece.validDestinations.Add(jump);
-                }
-            }
+          piece.validDestinations.Add(jump);
         }
+      }
     }
+  }
 
-    private Piece GetPieceAtPosition(Vector2Int position)
+  private Piece GetPieceAtPosition(Vector2Int position)
   {
     return layout[position.x, position.y];
   }
