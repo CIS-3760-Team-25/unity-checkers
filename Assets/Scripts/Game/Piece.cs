@@ -25,6 +25,8 @@ public class Piece : MonoBehaviour
 
   void OnMouseDown()
   {
+    board.SelectPiece(this);
+
     currentMove = new PieceMove();
     currentMove.start = gameObject.transform.position;
     currentMove.zCoord = Camera.main.WorldToScreenPoint(currentMove.start).z;

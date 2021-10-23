@@ -5,54 +5,47 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-  /* Holds the position of the top left tile
-   */
-  [SerializeField]
-  private Transform bottomLeftAnchor;
+  private Piece[,] layout;
+  private List<Piece> pieces;
   private GameController controller;
 
-  private Piece[,] layout;
-  private Piece[] pieces;
+  [SerializeField]
+  private GameObject whiteIndicator;
 
-  private const int BoardSize = 8;
-  private const float BoardSquareSize = 2.0F;
+  [SerializeField]
+  private GameObject blackIndicator;
+
+  private List<GameObject> activeIndicators;
 
   void Awake()
   {
-    layout = new Piece[8, 8];
-    pieces = (Piece[])FindObjectsOfType(typeof(Piece));
+    InitializeBoard();
+  }
 
-    foreach (Piece piece in pieces)
-    {
-      int pieceX = piece.startPosition.x;
-      int pieceY = piece.startPosition.y;
-
-      layout[pieceX, pieceY] = piece;
-
-      piece.SetBoard(this);
-    }
+  void OnValidate()
+  {
+    InitializeBoard();
   }
 
   public void SetController(GameController gameController)
   {
-    /* controller = gameController;
-     */
+    controller = gameController;
   }
 
   public void SelectPiece(Piece piece)
   {
-    /* Display indicators on valid destination squares
-     */
+    DisplayIndicators(piece);
   }
 
   public void DeselectPiece(Piece piece)
   {
+    DestroyIndicators();
     UpdatePiecePosition(piece);
 
     if (ProcessMove(piece))
     {
       AlignPieceInSquare(piece);
-      FindValidDestinations(piece);
+      FindAllValidMoves();
 
       if (IsGamePlayable())
       {
@@ -69,32 +62,39 @@ public class Board : MonoBehaviour
     }
   }
 
+  private void InitializeBoard()
+  {
+    layout = new Piece[8, 8];
+    // Find all piece prefabs
+    pieces = new List<Piece>(
+      (Piece[])FindObjectsOfType(typeof(Piece))
+    );
+
+    activeIndicators = new List<GameObject>();
+
+    pieces.ForEach((Piece piece) =>
+      {
+        piece.currentPosition = piece.startPosition;
+        piece.previousPosition = piece.startPosition;
+        // Add pieces to board model
+        layout[piece.startPosition.x, piece.startPosition.y] = piece;
+        // Connect piece to board
+        piece.SetBoard(this);
+      }
+    );
+
+    FindAllValidMoves();
+  }
+
   private bool ProcessMove(Piece piece)
   {
-    int px0 = piece.previousPosition.x;
-    int py0 = piece.previousPosition.y;
-    int px1 = piece.currentPosition.x;
-    int py1 = piece.currentPosition.y;
-    int dx = Math.Abs(px1 - px0);
-    int dy = Math.Abs(py1 - py0);
-
-    // Check if piece in in board bounds
-    if (px1 < 0 || py1 < 0 || px1 >= BoardSize || py1 >= BoardSize)
-    {
-      return false;
-    }
-    // Check that a piece isn't already in the square
-    if (layout[px1, py1] != null)
+    if (!piece.validDestinations.Contains(piece.currentPosition))
     {
       return false;
     }
 
-    // Check dx and dy (switch)
-    // Check if piece was captured
-
-    // Update model
-    layout[px0, py0] = null;
-    layout[px1, py1] = piece;
+    layout[piece.previousPosition.x, piece.previousPosition.y] = null;
+    layout[piece.currentPosition.x, piece.currentPosition.y] = piece;
 
     return true;
   }
@@ -126,31 +126,93 @@ public class Board : MonoBehaviour
 
   private void UpdatePiecePosition(Piece piece)
   {
-    Vector3 piecePosition = piece.transform.position;
-    Vector2Int boardPosition = new Vector2Int();
-
-    float dX = piecePosition.x - bottomLeftAnchor.position.x;
-    float dZ = piecePosition.z - bottomLeftAnchor.position.z;
-
-    boardPosition.x = (int)((dX) / BoardSquareSize);
-    boardPosition.y = (int)((dZ) / BoardSquareSize);
-
     piece.previousPosition = piece.currentPosition;
-    piece.currentPosition = boardPosition;
+    piece.currentPosition = BoardUtils.VectorToPosition(piece.transform.position);
   }
 
-  private void FindValidDestinations(Piece piece)
+  private void FindAllValidMoves()
   {
-    /* Iterate over the 8 squares surrounding Piece.currentPosition
-     * Return list of valid move destinations
-     */
+    pieces.ForEach(
+      (Piece piece) =>
+      {
+        piece.validDestinations.Clear();
+
+        /* Direction indicates which way the piece is moving in the layout
+         * Black pieces moving forward is an increase in y value (dir = 1)
+         * White pieces moving forward is a decrease in y value (dir = -1)
+         * Note that "y" refers to Vector2Int.y rn, not gameObject.transform.y
+         */
+        int direction = piece.color == TeamColors.WHITE ? -1 : 1;
+
+        // Check for moves/jumps in the left (-1) and right (1) direction
+        GetMovesInDirection(piece, new Vector2Int(-1, direction));
+        GetMovesInDirection(piece, new Vector2Int(1, direction));
+      }
+    );
+  }
+
+  private void GetMovesInDirection(Piece piece, Vector2Int direction)
+  {
+    Vector2Int move = piece.currentPosition + direction;
+
+    if (BoardUtils.IsPositionOnBoard(move))
+    {
+      Piece pieceInSquare = GetPieceAtPosition(move);
+
+      // If square is empty it's a valid move, otherwise check for jump
+      if (pieceInSquare == null)
+      {
+        piece.validDestinations.Add(move);
+      }
+      else if (pieceInSquare.color != piece.color)
+      {
+        Vector2Int jump = move + direction;
+        // Check that jump position is on the board and empty
+        if (BoardUtils.IsPositionOnBoard(jump) && !GetPieceAtPosition(jump))
+        {
+          piece.validDestinations.Add(jump);
+        }
+      }
+    }
+  }
+
+  private Piece GetPieceAtPosition(Vector2Int position)
+  {
+    return layout[position.x, position.y];
   }
 
   private void AlignPieceInSquare(Piece piece)
   {
-    int pX = 1 + (2 * piece.currentPosition.x);
-    int pY = 1 + (2 * piece.currentPosition.y);
+    piece.transform.position = new Vector3(
+      1 + (BoardUtils.BoardSquareSize * piece.currentPosition.x),
+      piece.transform.position.y,
+      1 + (BoardUtils.BoardSquareSize * piece.currentPosition.y)
+    );
+  }
 
-    piece.transform.position = new Vector3(pX, piece.transform.position.y, pY);
+  private void DisplayIndicators(Piece piece)
+  {
+    piece.validDestinations.ForEach(
+      (Vector2Int piecePosition) =>
+      {
+        Vector3 position = BoardUtils.PositionToVector(piecePosition);
+
+        if (piece.color == TeamColors.BLACK)
+          activeIndicators.Add(
+            Instantiate(blackIndicator, position, Quaternion.identity)
+          );
+        else
+          activeIndicators.Add(
+            Instantiate(whiteIndicator, position, Quaternion.identity)
+          );
+      }
+    );
+  }
+
+  private void DestroyIndicators()
+  {
+    activeIndicators.ForEach(
+      (GameObject indicator) => Destroy(indicator)
+    );
   }
 }
