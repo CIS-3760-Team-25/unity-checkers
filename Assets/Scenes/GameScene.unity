@@ -2444,8 +2444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373ef59e365ce42ceabf4f4a620db193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whiteIndicator: {fileID: 0}
-  blackIndicator: {fileID: 0}
+  whiteIndicator: {fileID: 919132149155446097, guid: c7e6c1b37f30945f4ab79f707c864698, type: 3}
+  blackIndicator: {fileID: 919132149155446097, guid: 7f417eb6e3afa45dd89fa4e13642eb32, type: 3}
 --- !u!1 &1435488966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3416,7 +3416,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad724292541c486b80f080916b1a750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  board: {fileID: 1425914299}
   gameOverScreen: {fileID: 333669202}
 --- !u!1001 &2086432065
 PrefabInstance:

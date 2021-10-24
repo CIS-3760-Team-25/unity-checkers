@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
   // public Player whitePlayer;
   // public Player activePlayer;
 
-  public Board board;
+ // public Board board;
   public GameOverScreen gameOverScreen;
   // private EventSystem menuEventSystem;
   // private EventSystem gameEventSystem;
