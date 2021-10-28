@@ -6,10 +6,14 @@ public class GameController : MonoBehaviour
   public Board board;
   public TeamColor activePlayer;
 
-  public GameOverScreen gameOverScreen;
+  [SerializeField]
+  private GameOverScreen gameOverScreen;
+
+  private CameraController cameraController;
 
   void Awake()
   {
+    cameraController = GetComponent<CameraController>();
     activePlayer = TeamColor.BLACK;
   }
 
@@ -48,5 +52,6 @@ public class GameController : MonoBehaviour
   {
     activePlayer = (TeamColor)((int)activePlayer * (-1));
     board.EnablePieces(activePlayer);
+    cameraController.Rotate();
   }
 }
