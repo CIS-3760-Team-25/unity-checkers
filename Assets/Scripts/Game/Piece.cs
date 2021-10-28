@@ -5,22 +5,19 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
   public bool isActive;
-  public TeamColors color;
+  public TeamColor color;
   public Vector2Int startPosition;
   public Vector2Int currentPosition;
   public Vector2Int previousPosition;
-  public List<Vector2Int> validDestinations;
+  public List<PieceDestination> moveDestinations;
+  public List<PieceDestination> captureDestinations;
 
   private Board board;
   private PieceMove currentMove;
 
   void Start()
   {
-    // Set Board as parent
     gameObject.transform.SetParent(board.transform);
-
-    currentPosition = startPosition;
-    previousPosition = startPosition;
   }
 
   void OnMouseDown()
@@ -50,6 +47,16 @@ public class Piece : MonoBehaviour
   public void SetBoard(Board gameBoard)
   {
     board = gameBoard;
+  }
+
+  public bool HasValidMoves()
+  {
+    return (moveDestinations.Count + captureDestinations.Count) != 0;
+  }
+
+  public bool HasCaptureMoves()
+  {
+    return captureDestinations.Count != 0;
   }
 
   public void UndoMove()

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465934, g: 0.49642956, b: 0.5748249, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -198,13 +198,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 3, y: 5}
   currentPosition: {x: 3, y: 5}
   previousPosition: {x: 3, y: 5}
-  validDestinations:
-  - {x: 2, y: 4}
-  - {x: 4, y: 4}
 --- !u!65 &84439160
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -293,11 +290,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 4, y: 6}
   currentPosition: {x: 4, y: 6}
   previousPosition: {x: 4, y: 6}
-  validDestinations: []
 --- !u!65 &105406102
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -386,13 +382,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 5, y: 5}
   currentPosition: {x: 5, y: 5}
   previousPosition: {x: 5, y: 5}
-  validDestinations:
-  - {x: 4, y: 4}
-  - {x: 6, y: 4}
 --- !u!65 &147018778
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -547,11 +540,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 5, y: 1}
   currentPosition: {x: 5, y: 1}
   previousPosition: {x: 5, y: 1}
-  validDestinations: []
 --- !u!65 &313187381
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -733,11 +725,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 3, y: 7}
   currentPosition: {x: 3, y: 7}
   previousPosition: {x: 3, y: 7}
-  validDestinations: []
 --- !u!65 &453811390
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -826,11 +817,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 3, y: 1}
   currentPosition: {x: 3, y: 1}
   previousPosition: {x: 3, y: 1}
-  validDestinations: []
 --- !u!65 &490326506
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -919,11 +909,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 2, y: 0}
   currentPosition: {x: 2, y: 0}
   previousPosition: {x: 2, y: 0}
-  validDestinations: []
 --- !u!65 &565267373
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1012,11 +1001,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 1, y: 1}
   currentPosition: {x: 1, y: 1}
   previousPosition: {x: 1, y: 1}
-  validDestinations: []
 --- !u!65 &743439797
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1105,11 +1093,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 0, y: 6}
   currentPosition: {x: 0, y: 6}
   previousPosition: {x: 0, y: 6}
-  validDestinations: []
 --- !u!65 &804290391
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1198,12 +1185,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 7, y: 5}
   currentPosition: {x: 7, y: 5}
   previousPosition: {x: 7, y: 5}
-  validDestinations:
-  - {x: 6, y: 4}
 --- !u!65 &856341447
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1292,11 +1277,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 4, y: 0}
   currentPosition: {x: 4, y: 0}
   previousPosition: {x: 4, y: 0}
-  validDestinations: []
 --- !u!65 &858063900
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1385,13 +1369,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 4, y: 2}
   currentPosition: {x: 4, y: 2}
   previousPosition: {x: 4, y: 2}
-  validDestinations:
-  - {x: 3, y: 3}
-  - {x: 5, y: 3}
 --- !u!65 &1154912926
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1480,11 +1461,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 6, y: 6}
   currentPosition: {x: 6, y: 6}
   previousPosition: {x: 6, y: 6}
-  validDestinations: []
 --- !u!65 &1162838067
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1573,12 +1553,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 0, y: 2}
   currentPosition: {x: 0, y: 2}
   previousPosition: {x: 0, y: 2}
-  validDestinations:
-  - {x: 1, y: 3}
 --- !u!65 &1205562818
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1667,11 +1645,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 7, y: 1}
   currentPosition: {x: 7, y: 1}
   previousPosition: {x: 7, y: 1}
-  validDestinations: []
 --- !u!65 &1224691193
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1760,13 +1737,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 1, y: 5}
   currentPosition: {x: 1, y: 5}
   previousPosition: {x: 1, y: 5}
-  validDestinations:
-  - {x: 0, y: 4}
-  - {x: 2, y: 4}
 --- !u!65 &1224812390
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1934,13 +1908,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 2, y: 2}
   currentPosition: {x: 2, y: 2}
   previousPosition: {x: 2, y: 2}
-  validDestinations:
-  - {x: 1, y: 3}
-  - {x: 3, y: 3}
 --- !u!65 &1284168620
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2122,11 +2093,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 2, y: 6}
   currentPosition: {x: 2, y: 6}
   previousPosition: {x: 2, y: 6}
-  validDestinations: []
 --- !u!65 &1316218112
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2348,11 +2318,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 0, y: 0}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: []
 --- !u!65 &1395814382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2654,13 +2623,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 6, y: 2}
   currentPosition: {x: 6, y: 2}
   previousPosition: {x: 6, y: 2}
-  validDestinations:
-  - {x: 5, y: 3}
-  - {x: 7, y: 3}
 --- !u!65 &1459173338
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2749,11 +2715,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 1, y: 7}
   currentPosition: {x: 1, y: 7}
   previousPosition: {x: 1, y: 7}
-  validDestinations: []
 --- !u!65 &1702224488
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2842,11 +2807,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 6, y: 0}
   currentPosition: {x: 6, y: 0}
   previousPosition: {x: 6, y: 0}
-  validDestinations: []
 --- !u!65 &1703220720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2965,11 +2929,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 7, y: 7}
   currentPosition: {x: 7, y: 7}
   previousPosition: {x: 7, y: 7}
-  validDestinations: []
 --- !u!65 &1858909505
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3416,6 +3379,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad724292541c486b80f080916b1a750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  board: {fileID: 1425914299}
+  activePlayer: 0
   gameOverScreen: {fileID: 333669202}
 --- !u!1001 &2086432065
 PrefabInstance:
@@ -3492,11 +3457,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 5, y: 7}
   currentPosition: {x: 5, y: 7}
   previousPosition: {x: 5, y: 7}
-  validDestinations: []
 --- !u!65 &2086432068
 BoxCollider:
   m_ObjectHideFlags: 0

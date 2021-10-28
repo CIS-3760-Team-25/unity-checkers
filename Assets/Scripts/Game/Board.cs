@@ -17,6 +17,13 @@ public class Board : MonoBehaviour
 
   private List<GameObject> activeIndicators;
 
+  private bool mustCapture;
+
+  enum MoveOutcome
+  {
+    VALID, INVALID, CAPTURE
+  }
+
   void Awake()
   {
     InitializeBoard();
@@ -32,52 +39,66 @@ public class Board : MonoBehaviour
     controller = gameController;
   }
 
+  public void EnablePieces(TeamColor color)
+  {
+    mustCapture = false;
+
+    pieces.ForEach(
+      piece =>
+      {
+        piece.isActive = piece.color == color;
+        // Move must involve a capture if any piece can capture
+        if (piece.isActive && piece.HasCaptureMoves())
+          mustCapture = true;
+      }
+    );
+  }
+
   public void SelectPiece(Piece piece)
   {
-    DisplayIndicators(piece);
+    if (piece.isActive)
+      DisplayIndicators(piece);
   }
 
   public void DeselectPiece(Piece piece)
   {
     DestroyIndicators();
     UpdatePiecePosition(piece);
-    // int turn ; a variable to change who's turn it is
-    if (ProcessMove(piece))
+
+    if (piece.isActive)
     {
-      AlignPieceInSquare(piece);
-      Piece captured = WasPieceCaptured(piece.previousPosition, piece.currentPosition);
-
-      if (captured != null)
+      switch (ProcessMove(piece))
       {
-        // turn = 1; //keep the turn on current player side
-        // Look at only the current pieces moves
-        RemovePiece(captured);
-        ClearMoves();
-        // Get the any capture moves for current piece
-        FindCaptureMoves(piece);
-        // If no capture moves remain, we allow moves from other pieces
-        if (piece.validDestinations.Count == 0)
-        {
+        case MoveOutcome.VALID:
+          AlignPieceInSquare(piece);
           FindAllValidMoves();
-          // turn = -1; //swap turn
-        }
-      }
-      else
-      {
-        FindAllValidMoves();
-        // turn = -1; //swap turn
-      }
 
-      if (IsGamePlayable())
-      {
-        // End turn
-        // MAKE TURN white or black
-        // GAMETURN *= turn;
-      }
-      else
-      {
-        // End game
-        controller.EndGame();
+          if (IsGamePlayable())
+          {
+            controller.EndTurn();
+          }
+          else
+          {
+            // End game
+            // controller.EndGame();
+          }
+          break;
+
+        case MoveOutcome.INVALID:
+          piece.UndoMove();
+          break;
+
+        case MoveOutcome.CAPTURE:
+          ClearAllMoves();
+          AlignPieceInSquare(piece);
+          FindValidMoves(piece);
+          // If not more captures available, end turn
+          if (!piece.HasCaptureMoves())
+          {
+            FindAllValidMoves();
+            controller.EndTurn();
+          }
+          break;
       }
     }
     else
@@ -100,6 +121,8 @@ public class Board : MonoBehaviour
       {
         piece.currentPosition = piece.startPosition;
         piece.previousPosition = piece.startPosition;
+        piece.moveDestinations = new List<PieceDestination>();
+        piece.captureDestinations = new List<PieceDestination>();
         // Add pieces to board model
         layout[piece.startPosition.x, piece.startPosition.y] = piece;
         // Connect piece to board
@@ -110,35 +133,47 @@ public class Board : MonoBehaviour
     FindAllValidMoves();
   }
 
-  private bool ProcessMove(Piece piece)
+  private MoveOutcome ProcessMove(Piece piece)
   {
-    if (!piece.validDestinations.Contains(piece.currentPosition))
+    if (mustCapture)
     {
-      return false;
+      // Check if move to current position is involved a capture
+      PieceDestination destination = piece.captureDestinations.Find(
+        dest => dest.position == piece.currentPosition
+      );
+      // If destination isn't a capture, move is invalid
+      if (destination == null)
+        return MoveOutcome.INVALID;
+
+      RemovePiece(destination.capturedPiece);
+
+      layout[piece.previousPosition.x, piece.previousPosition.y] = null;
+      layout[piece.currentPosition.x, piece.currentPosition.y] = piece;
+
+      return MoveOutcome.CAPTURE;
     }
-
-    layout[piece.previousPosition.x, piece.previousPosition.y] = null;
-    layout[piece.currentPosition.x, piece.currentPosition.y] = piece;
-
-    return true;
-  }
-
-  private Piece WasPieceCaptured(Vector2Int previousPos, Vector2Int currentPos)
-  {
-    if (Math.Abs(currentPos.y - previousPos.y) == 2)
+    else
     {
-      Vector2Int position = previousPos + (currentPos - previousPos) / 2;
-      return GetPieceAtPosition(position);
-    }
+      bool isValidDestination = piece.moveDestinations.Exists(
+        dest => dest.position == piece.currentPosition
+      );
 
-    return null;
+      if (!isValidDestination)
+        return MoveOutcome.INVALID;
+
+      layout[piece.previousPosition.x, piece.previousPosition.y] = null;
+      layout[piece.currentPosition.x, piece.currentPosition.y] = piece;
+
+      return MoveOutcome.VALID;
+    }
   }
 
   private void RemovePiece(Piece piece)
   {
     layout[piece.currentPosition.x, piece.currentPosition.y] = null;
     piece.gameObject.SetActive(false);
-    Debug.Log($"Removed piece at {piece.currentPosition.x} , {piece.currentPosition.y}");
+
+    Debug.Log($"Removed piece at {piece.currentPosition}");
   }
 
   private bool IsGamePlayable()
@@ -157,52 +192,30 @@ public class Board : MonoBehaviour
 
   private void FindAllValidMoves()
   {
-    pieces.ForEach(
-      (Piece piece) =>
-      {
-        piece.validDestinations.Clear();
-
-        /* Direction indicates which way the piece is moving in the layout
-         * Black pieces moving forward is an increase in y value (dir = 1)
-         * White pieces moving forward is a decrease in y value (dir = -1)
-         * Note that "y" refers to Vector2Int.y rn, not gameObject.transform.y
-         */
-        int direction = piece.color == TeamColors.WHITE ? -1 : 1;
-
-        // Check for moves/jumps in the left (-1) and right (1) direction
-        GetMovesInDirection(piece, new Vector2Int(-1, direction));
-        GetMovesInDirection(piece, new Vector2Int(1, direction));
-      }
-    );
+    pieces.ForEach(FindValidMoves);
   }
 
-  private void FindCaptureMoves(Piece piece)
+  private void FindValidMoves(Piece piece)
   {
-    int direction = piece.color == TeamColors.WHITE ? -1 : 1;
-    GetCaptureMovesInDirection(piece, new Vector2Int(-1, direction));
-    GetCaptureMovesInDirection(piece, new Vector2Int(1, direction));
+    piece.moveDestinations.Clear();
+    piece.captureDestinations.Clear();
+
+    GetMovesInDirection(piece, new Vector2Int(-1, (int)piece.color));
+    GetMovesInDirection(piece, new Vector2Int(1, (int)piece.color));
   }
 
-  private void ClearMoves()
-  {
-    pieces.ForEach(
-      (Piece piece) =>
-      {
-        piece.validDestinations.Clear();
-      }
-    );
-  }
-
-  private void GetMovesInDirection(Piece piece, Vector2Int direction)
+  private void GetMovesInDirection(Piece piece, Vector2Int direction, bool jumpsOnly = false)
   {
     Vector2Int move = piece.currentPosition + direction;
+
     if (BoardUtils.IsPositionOnBoard(move))
     {
       Piece pieceInSquare = GetPieceAtPosition(move);
       // If square is empty it's a valid move, otherwise check for jump
       if (pieceInSquare == null)
       {
-        piece.validDestinations.Add(move);
+        if (!jumpsOnly)
+          piece.moveDestinations.Add(new PieceDestination(move));
       }
       else if (pieceInSquare.color != piece.color)
       {
@@ -210,25 +223,7 @@ public class Board : MonoBehaviour
         // Check that jump position is on the board and empty
         if (BoardUtils.IsPositionOnBoard(jump) && !GetPieceAtPosition(jump))
         {
-          piece.validDestinations.Add(jump);
-        }
-      }
-    }
-  }
-
-  private void GetCaptureMovesInDirection(Piece piece, Vector2Int direction)
-  {
-    Vector2Int move = piece.currentPosition + direction;
-    if (BoardUtils.IsPositionOnBoard(move))
-    {
-      Piece pieceInSquare = GetPieceAtPosition(move);
-      if (pieceInSquare != null && pieceInSquare.color != piece.color)
-      {
-        Vector2Int jump = move + direction;
-        // Check that jump position is on the board and empty
-        if (BoardUtils.IsPositionOnBoard(jump) && !GetPieceAtPosition(jump))
-        {
-          piece.validDestinations.Add(jump);
+          piece.captureDestinations.Add(new PieceDestination(jump, pieceInSquare));
         }
       }
     }
@@ -250,27 +245,44 @@ public class Board : MonoBehaviour
 
   private void DisplayIndicators(Piece piece)
   {
-    piece.validDestinations.ForEach(
-      (Vector2Int piecePosition) =>
-      {
-        Vector3 position = BoardUtils.PositionToVector(piecePosition);
+    // Lambda for displaying indicators
+    Action<PieceDestination> displayIndicators = (destination) =>
+    {
+      Vector3 position = BoardUtils.PositionToVector(destination.position);
 
-        if (piece.color == TeamColors.BLACK)
-          activeIndicators.Add(
-            Instantiate(blackIndicator, position, Quaternion.identity)
-          );
-        else
-          activeIndicators.Add(
-            Instantiate(whiteIndicator, position, Quaternion.identity)
-          );
+      if (piece.color == TeamColor.BLACK)
+        activeIndicators.Add(
+          Instantiate(blackIndicator, position, Quaternion.identity)
+        );
+      else
+        activeIndicators.Add(
+          Instantiate(whiteIndicator, position, Quaternion.identity)
+        );
+    };
+
+    if (mustCapture)
+    {
+      if (piece.HasCaptureMoves())
+        piece.captureDestinations.ForEach(displayIndicators);
+    }
+    else
+    {
+      piece.moveDestinations.ForEach(displayIndicators);
+    }
+  }
+
+  private void ClearAllMoves()
+  {
+    pieces.ForEach(piece =>
+      {
+        piece.moveDestinations.Clear();
+        piece.captureDestinations.Clear();
       }
     );
   }
 
   private void DestroyIndicators()
   {
-    activeIndicators.ForEach(
-      (GameObject indicator) => Destroy(indicator)
-    );
+    activeIndicators.ForEach(indicator => Destroy(indicator));
   }
 }
