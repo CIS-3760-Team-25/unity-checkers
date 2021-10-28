@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465934, g: 0.49642956, b: 0.5748249, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -195,16 +195,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 3, y: 5}
   currentPosition: {x: 3, y: 5}
   previousPosition: {x: 3, y: 5}
-  validDestinations:
-  - {x: 2, y: 4}
-  - {x: 4, y: 4}
 --- !u!65 &84439160
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -290,14 +287,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 4, y: 6}
   currentPosition: {x: 4, y: 6}
   previousPosition: {x: 4, y: 6}
-  validDestinations: []
 --- !u!65 &105406102
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -383,16 +379,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 5, y: 5}
   currentPosition: {x: 5, y: 5}
   previousPosition: {x: 5, y: 5}
-  validDestinations:
-  - {x: 4, y: 4}
-  - {x: 6, y: 4}
 --- !u!65 &147018778
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -434,8 +427,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -453,8 +446,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
@@ -544,14 +537,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 5, y: 1}
   currentPosition: {x: 5, y: 1}
   previousPosition: {x: 5, y: 1}
-  validDestinations: []
 --- !u!65 &313187381
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -617,8 +609,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa46bcf6c82eb564cb55ef20f01ddecd, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   winnerTxt: {fileID: 1231170700}
 --- !u!114 &333669203
 MonoBehaviour:
@@ -630,8 +622,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.7882353}
   m_RaycastTarget: 1
@@ -730,14 +722,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 3, y: 7}
   currentPosition: {x: 3, y: 7}
   previousPosition: {x: 3, y: 7}
-  validDestinations: []
 --- !u!65 &453811390
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -823,14 +814,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 3, y: 1}
   currentPosition: {x: 3, y: 1}
   previousPosition: {x: 3, y: 1}
-  validDestinations: []
 --- !u!65 &490326506
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -916,14 +906,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 2, y: 0}
   currentPosition: {x: 2, y: 0}
   previousPosition: {x: 2, y: 0}
-  validDestinations: []
 --- !u!65 &565267373
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1009,14 +998,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 1, y: 1}
   currentPosition: {x: 1, y: 1}
   previousPosition: {x: 1, y: 1}
-  validDestinations: []
 --- !u!65 &743439797
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1102,14 +1090,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 0, y: 6}
   currentPosition: {x: 0, y: 6}
   previousPosition: {x: 0, y: 6}
-  validDestinations: []
 --- !u!65 &804290391
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1195,15 +1182,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 7, y: 5}
   currentPosition: {x: 7, y: 5}
   previousPosition: {x: 7, y: 5}
-  validDestinations:
-  - {x: 6, y: 4}
 --- !u!65 &856341447
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1289,14 +1274,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 4, y: 0}
   currentPosition: {x: 4, y: 0}
   previousPosition: {x: 4, y: 0}
-  validDestinations: []
 --- !u!65 &858063900
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1382,16 +1366,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 4, y: 2}
   currentPosition: {x: 4, y: 2}
   previousPosition: {x: 4, y: 2}
-  validDestinations:
-  - {x: 3, y: 3}
-  - {x: 5, y: 3}
 --- !u!65 &1154912926
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1477,14 +1458,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 6, y: 6}
   currentPosition: {x: 6, y: 6}
   previousPosition: {x: 6, y: 6}
-  validDestinations: []
 --- !u!65 &1162838067
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1570,15 +1550,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 0, y: 2}
   currentPosition: {x: 0, y: 2}
   previousPosition: {x: 0, y: 2}
-  validDestinations:
-  - {x: 1, y: 3}
 --- !u!65 &1205562818
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1664,14 +1642,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 7, y: 1}
   currentPosition: {x: 7, y: 1}
   previousPosition: {x: 7, y: 1}
-  validDestinations: []
 --- !u!65 &1224691193
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1757,16 +1734,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 1, y: 5}
   currentPosition: {x: 1, y: 5}
   previousPosition: {x: 1, y: 5}
-  validDestinations:
-  - {x: 0, y: 4}
-  - {x: 2, y: 4}
 --- !u!65 &1224812390
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1827,8 +1801,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -1931,16 +1905,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 2, y: 2}
   currentPosition: {x: 2, y: 2}
   previousPosition: {x: 2, y: 2}
-  validDestinations:
-  - {x: 1, y: 3}
-  - {x: 3, y: 3}
 --- !u!65 &1284168620
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2119,14 +2090,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 2, y: 6}
   currentPosition: {x: 2, y: 6}
   previousPosition: {x: 2, y: 6}
-  validDestinations: []
 --- !u!65 &1316218112
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2189,8 +2159,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -2232,7 +2202,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1339003721
@@ -2245,8 +2215,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -2345,14 +2315,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 0, y: 0}
   currentPosition: {x: 0, y: 0}
   previousPosition: {x: 0, y: 0}
-  validDestinations: []
 --- !u!65 &1395814382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2442,8 +2411,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 373ef59e365ce42ceabf4f4a620db193, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   whiteIndicator: {fileID: 919132149155446097, guid: c7e6c1b37f30945f4ab79f707c864698, type: 3}
   blackIndicator: {fileID: 919132149155446097, guid: 7f417eb6e3afa45dd89fa4e13642eb32, type: 3}
 --- !u!1 &1435488966
@@ -2495,8 +2464,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -2538,7 +2507,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1435488969
@@ -2551,8 +2520,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -2651,16 +2620,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 6, y: 2}
   currentPosition: {x: 6, y: 2}
   previousPosition: {x: 6, y: 2}
-  validDestinations:
-  - {x: 5, y: 3}
-  - {x: 7, y: 3}
 --- !u!65 &1459173338
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2746,14 +2712,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 1, y: 7}
   currentPosition: {x: 1, y: 7}
   previousPosition: {x: 1, y: 7}
-  validDestinations: []
 --- !u!65 &1702224488
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2839,14 +2804,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 0
+  color: 1
   startPosition: {x: 6, y: 0}
   currentPosition: {x: 6, y: 0}
   previousPosition: {x: 6, y: 0}
-  validDestinations: []
 --- !u!65 &1703220720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2932,14 +2896,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 7, y: 7}
   currentPosition: {x: 7, y: 7}
   previousPosition: {x: 7, y: 7}
-  validDestinations: []
 --- !u!65 &1858909505
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3000,8 +2963,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
@@ -3061,8 +3024,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -3078,8 +3041,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -3125,7 +3088,7 @@ RectTransform:
   m_Children:
   - {fileID: 333669201}
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3179,8 +3142,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
@@ -3258,8 +3221,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -3302,6 +3265,7 @@ GameObject:
   - component: {fileID: 2032790534}
   - component: {fileID: 2032790533}
   - component: {fileID: 2032790536}
+  - component: {fileID: 2032790537}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3384,10 +3348,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6952d518fdb65434a828249c07943bde, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   rot_duration: 2
   rot_speed: 0.25
+--- !u!114 &2032790537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032790532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad724292541c486b80f080916b1a750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  board: {fileID: 1425914299}
+  activePlayer: 1
+  gameOverScreen: {fileID: 333669202}
 --- !u!1001 &2086432065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3460,14 +3439,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf8e6fb5f9894d0ca19bc7f7ff3e3d3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isActive: 0
-  color: 1
+  color: -1
   startPosition: {x: 5, y: 7}
   currentPosition: {x: 5, y: 7}
   previousPosition: {x: 5, y: 7}
-  validDestinations: []
 --- !u!65 &2086432068
 BoxCollider:
   m_ObjectHideFlags: 0
