@@ -50,8 +50,11 @@ public class GameController : MonoBehaviour
 
   public void EndTurn()
   {
+    Debug.Log($"{activePlayer} turn ended");
+
     activePlayer = (TeamColor)((int)activePlayer * (-1));
     board.EnablePieces(activePlayer);
-    cameraController.Rotate();
+    // Temporarily disable camera rotation
+    // cameraController.Rotate();
   }
 }

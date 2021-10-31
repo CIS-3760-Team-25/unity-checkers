@@ -52,6 +52,8 @@ public class Board : MonoBehaviour
           mustCapture = true;
       }
     );
+
+    Debug.Log(mustCapture ? $"{color} must capture" : $"{color} free to move");
   }
 
   public void SelectPiece(Piece piece)
@@ -172,6 +174,7 @@ public class Board : MonoBehaviour
   {
     layout[piece.currentPosition.x, piece.currentPosition.y] = null;
     piece.gameObject.SetActive(false);
+    pieces.Remove(piece);
 
     Debug.Log($"Removed piece at {piece.currentPosition}");
   }
