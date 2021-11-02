@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LoadGame : MonoBehaviour
 {
-    void OnMouseDown() 
-    {
-        SceneManager.LoadScene(1);
-    }
-
+  void OnMouseDown() {
+    SceneManager.LoadScene(1);
+  }
+  
 }
