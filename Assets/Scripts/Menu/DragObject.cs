@@ -7,14 +7,16 @@ public class DragObject : MonoBehaviour
   private Vector3 mOffset;
   private float mZCoord;
 
-  void onMouseDown() {
+  void onMouseDown() 
+  {
     mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
 
     // Store offset = gameobject world pos - mouse world pos
     mOffset = gameObject.transform.position - GetMouseWorldPos();
   }
 
-  private Vector3 GetMouseWorldPos() {
+  private Vector3 GetMouseWorldPos() 
+  {
     // pixel coordinates (x, y)
     Vector3 mousePoint = Input.mousePosition;
 
@@ -24,7 +26,8 @@ public class DragObject : MonoBehaviour
     return Camera.main.ScreenToWorldPoint(mousePoint);
   }
 
-  void OnMouseDrag() {
+  void OnMouseDrag() 
+  {
     transform.position = GetMouseWorldPos() + mOffset;
   }
   

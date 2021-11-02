@@ -5,15 +5,18 @@ using UnityEngine;
 public class MouseHover : MonoBehaviour
 {
   // Start is called before the first frame update
-  void Start() {
+  void Start() 
+  {
     GetComponent<Renderer>().material.color = Color.blue;
   }
 
-  void OnMouseEnter() {
+  void OnMouseEnter() 
+  {
     GetComponent<Renderer>().material.color = Color.red;
   }
 
-  void onMouseExit() {
+  void onMouseExit() 
+  {
     GetComponent<Renderer>().material.color = Color.blue;
   }
     
