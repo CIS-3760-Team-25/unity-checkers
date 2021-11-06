@@ -5,6 +5,8 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
   public bool isActive;
+  public bool isKing;
+  public Mesh kingMesh;
   public TeamColor color;
   public Vector2Int startPosition;
   public Vector2Int currentPosition;
@@ -49,6 +51,14 @@ public class Piece : MonoBehaviour
     board = gameBoard;
   }
 
+  public void PromoteToKing()
+  {
+    this.isKing = true;
+    this.gameObject.GetComponent<MeshFilter>().mesh = kingMesh;
+
+    Debug.Log($"{gameObject.name} promoted at {currentPosition}");
+  }
+
   public bool HasValidMoves()
   {
     return (moveDestinations.Count + captureDestinations.Count) != 0;
@@ -57,6 +67,12 @@ public class Piece : MonoBehaviour
   public bool HasCaptureMoves()
   {
     return captureDestinations.Count != 0;
+  }
+
+  public bool HasReachedOppositeEndOfBoard()
+  {
+    int rowToReach = this.color == TeamColor.BLACK ? 7 : 0;
+    return this.currentPosition.y == rowToReach;
   }
 
   public void UndoMove()

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+  public Mesh kingMesh; 
   private Piece[,] layout;
   private List<Piece> pieces;
   private GameController controller;
@@ -52,6 +53,8 @@ public class Board : MonoBehaviour
           mustCapture = true;
       }
     );
+
+    Debug.Log(mustCapture ? $"{color} must capture" : $"{color} free to move");
   }
 
   public void SelectPiece(Piece piece)
@@ -71,6 +74,10 @@ public class Board : MonoBehaviour
       {
         case MoveOutcome.VALID:
           AlignPieceInSquare(piece);
+
+          if (piece.HasReachedOppositeEndOfBoard() && !piece.isKing)
+            piece.PromoteToKing();
+          
           FindAllValidMoves();
 
           if (IsGamePlayable())
@@ -90,8 +97,14 @@ public class Board : MonoBehaviour
 
         case MoveOutcome.CAPTURE:
           ClearAllMoves();
+
           AlignPieceInSquare(piece);
+
+          if (piece.HasReachedOppositeEndOfBoard() && !piece.isKing)
+            piece.PromoteToKing();
+
           FindValidMoves(piece);
+
           // If not more captures available, end turn
           if (!piece.HasCaptureMoves())
           {
@@ -123,6 +136,7 @@ public class Board : MonoBehaviour
         piece.previousPosition = piece.startPosition;
         piece.moveDestinations = new List<PieceDestination>();
         piece.captureDestinations = new List<PieceDestination>();
+        piece.kingMesh = kingMesh;
         // Add pieces to board model
         layout[piece.startPosition.x, piece.startPosition.y] = piece;
         // Connect piece to board
@@ -172,6 +186,7 @@ public class Board : MonoBehaviour
   {
     layout[piece.currentPosition.x, piece.currentPosition.y] = null;
     piece.gameObject.SetActive(false);
+    pieces.Remove(piece);
 
     Debug.Log($"Removed piece at {piece.currentPosition}");
   }
@@ -202,6 +217,11 @@ public class Board : MonoBehaviour
 
     GetMovesInDirection(piece, new Vector2Int(-1, (int)piece.color));
     GetMovesInDirection(piece, new Vector2Int(1, (int)piece.color));
+    if (piece.isKing)
+    {
+      GetMovesInDirection(piece, new Vector2Int(-1, -(int)piece.color));
+      GetMovesInDirection(piece, new Vector2Int(1, -(int)piece.color));
+    }
   }
 
   private void GetMovesInDirection(Piece piece, Vector2Int direction, bool jumpsOnly = false)
