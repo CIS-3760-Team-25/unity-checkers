@@ -3,7 +3,7 @@
 The `Board` model is defined as a 2D array of `Piece` objects (each is an instance of GameObject). Each `Piece` position is defined as a 2D vector (`Vector2Int`). Positions are defined relative to the bottom left corner of the board as show below. The orange dot represents the position of `Board.bottomLeftAnchor` (used to convert 3D positions to array positions)
 
 <p align="center" style="transform: rotate(90)">
-  <img src="https://user-images.githubusercontent.com/45947696/136303928-88fd4737-11ad-495b-aa67-3c8b99529909.png" width="60%" >
+  <img src="https://user-images.githubusercontent.com/45947696/141135530-0e23a252-af14-437c-9cd4-ab10a4251a7d.png" width="60%" >
 </p>
 <br>
 
