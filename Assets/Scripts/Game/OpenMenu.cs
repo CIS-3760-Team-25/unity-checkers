@@ -5,19 +5,15 @@ using UnityEngine;
 public class OpenMenu : MonoBehaviour
 {
 
-    public GameObject menuGameObject;
+  public GameObject objectToActivate;
     
-    // Update is called once per frame
-    void Update()
+  // Update is called once per frame
+  void Update()
+  {
+    if(Input.GetKeyDown(KeyCode.Escape))
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            CreatePrefab();
-        }
+      objectToActivate.SetActive(true);
     }
+  }
 
-    public void CreatePrefab()
-    {
-        Instantiate(menuGameObject);
-    }
 }

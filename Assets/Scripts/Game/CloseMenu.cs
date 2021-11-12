@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CloseMenu : MonoBehaviour
 {
-  public GameObject objectToDestroy;
+  public GameObject objectToDeactivate;
 
   void OnMouseDown() {
-      objectToDestroy.SetActive(false);
+      objectToDeactivate.SetActive(false);
   }
 }
 
