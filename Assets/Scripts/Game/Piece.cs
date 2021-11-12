@@ -5,22 +5,21 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
   public bool isActive;
-  public TeamColors color;
+  public bool isKing;
+  public Mesh kingMesh;
+  public TeamColor color;
   public Vector2Int startPosition;
   public Vector2Int currentPosition;
   public Vector2Int previousPosition;
-  public List<Vector2Int> validDestinations;
+  public List<PieceDestination> moveDestinations;
+  public List<PieceDestination> captureDestinations;
 
   private Board board;
   private PieceMove currentMove;
 
   void Start()
   {
-    // Set Board as parent
     gameObject.transform.SetParent(board.transform);
-
-    currentPosition = startPosition;
-    previousPosition = startPosition;
   }
 
   void OnMouseDown()
@@ -50,6 +49,30 @@ public class Piece : MonoBehaviour
   public void SetBoard(Board gameBoard)
   {
     board = gameBoard;
+  }
+
+  public void PromoteToKing()
+  {
+    this.isKing = true;
+    this.gameObject.GetComponent<MeshFilter>().mesh = kingMesh;
+
+    Debug.Log($"{gameObject.name} promoted at {currentPosition}");
+  }
+
+  public bool HasValidMoves()
+  {
+    return (moveDestinations.Count + captureDestinations.Count) != 0;
+  }
+
+  public bool HasCaptureMoves()
+  {
+    return captureDestinations.Count != 0;
+  }
+
+  public bool HasReachedOppositeEndOfBoard()
+  {
+    int rowToReach = this.color == TeamColor.BLACK ? 7 : 0;
+    return this.currentPosition.y == rowToReach;
   }
 
   public void UndoMove()

@@ -3,48 +3,58 @@ using System.Collections;
 
 public class GameController : MonoBehaviour
 {
-  // public Player blackPlayer;
-  // public Player whitePlayer;
-  // public Player activePlayer;
+  public Board board;
+  public TeamColor activePlayer;
 
- // public Board board;
-  public GameOverScreen gameOverScreen;
-  // private EventSystem menuEventSystem;
-  // private EventSystem gameEventSystem;
+  [SerializeField]
+  private GameOverScreen gameOverScreen;
 
-  public void triggerGameOverScreen(int winner)
-  {
-    gameOverScreen.Setup(winner);
-  }
+  private CameraController cameraController;
+
   void Awake()
   {
+    cameraController = GetComponent<CameraController>();
+    activePlayer = TeamColor.BLACK;
+  }
 
+  void Start()
+  {
+    board.SetController(this);
+    StartGame(); // Should be called after Play button is clicked
+  }
+
+  void Update()
+  {
+    // Temporary triggers for game over
+    if (Input.GetKeyDown("z"))
+      EndGame(TeamColor.BLACK);
+    if (Input.GetKeyDown("x"))
+      EndGame(TeamColor.WHITE);
   }
 
   public void StartGame()
   {
-
+    activePlayer = TeamColor.BLACK;
+    board.EnablePieces(activePlayer);
   }
 
-  public void EndGame()
+  public void EndGame(TeamColor winner)
   {
-
+    // This function should determine winner, not accept param
+    gameOverScreen.Setup(winner);
   }
 
   public void StartTurn()
   {
-
   }
 
   public void EndTurn()
   {
+    Debug.Log($"{activePlayer} turn ended");
 
+    activePlayer = (TeamColor)((int)activePlayer * (-1));
+    board.EnablePieces(activePlayer);
+    // Temporarily disable camera rotation
+    // cameraController.Rotate();
   }
-  void Update()
-  {
-    //Temporarily triggers for game over
-    if (Input.GetKeyDown("z")) triggerGameOverScreen(1);
-    if (Input.GetKeyDown("x")) triggerGameOverScreen(-1);
-  }
-
 }
