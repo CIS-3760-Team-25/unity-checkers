@@ -21,7 +21,7 @@ public class DragObject : MonoBehaviour
     Vector3 mousePoint = Input.mousePosition;
 
     // z coordinate of the game object on screen
-    mousePoint.z = mZCoord + 20;
+    mousePoint.z = mZCoord + 12;
 
     return Camera.main.ScreenToWorldPoint(mousePoint);
   }
