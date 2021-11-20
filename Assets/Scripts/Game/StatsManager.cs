@@ -9,6 +9,11 @@ public class StatsManager : MonoBehaviour
   [SerializeField]
   private string API_URL;
 
+  void Start()
+  {
+    Debug.Log($"API URL: {API_URL}");
+  }
+
   public void StartGame(string gameData, System.Action<string> callback)
   {
     StartCoroutine(Post($"{API_URL}/games", gameData, callback));
