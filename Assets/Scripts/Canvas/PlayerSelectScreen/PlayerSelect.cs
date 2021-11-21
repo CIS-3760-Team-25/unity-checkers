@@ -6,6 +6,9 @@ public class PlayerSelect : MonoBehaviour
   [SerializeField]
   private StatsManager statsManager;
 
+  [SerializeField]
+  private GameController gameController;
+
   public InputField playerOneName;
   public InputField playerOneEmail;
   public InputField playerTwoName;
@@ -18,8 +21,6 @@ public class PlayerSelect : MonoBehaviour
 
   private bool isPlayerOneGuest = false;
   private bool isPlayerTwoGuest = false;
-
-  private GameRecord gameRecord;
 
   void Start()
   {
@@ -39,8 +40,10 @@ public class PlayerSelect : MonoBehaviour
     if (ArePlayersValid())
     {
       GameRecord gameRecord = new GameRecord();
-      gameRecord.setPlayerOne(playerOneName.text, playerOneEmail.text);
-      gameRecord.setPlayerTwo(playerTwoName.text, playerTwoEmail.text);
+      gameRecord.SetPlayerOne(playerOneName.text, playerOneEmail.text);
+      gameRecord.SetPlayerTwo(playerTwoName.text, playerTwoEmail.text);
+
+      gameController.SetGameRecord(gameRecord);
 
       statsManager.StartGame(gameRecord.ToJson(), result =>
         {
