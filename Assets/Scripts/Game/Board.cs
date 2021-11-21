@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-  public Mesh kingMesh; 
+  public Mesh kingMesh;
   private Piece[,] layout;
   private List<Piece> pieces;
   private GameController controller;
@@ -40,7 +40,19 @@ public class Board : MonoBehaviour
     controller = gameController;
   }
 
-  public void EnablePieces(TeamColor color)
+  public void DisablePieces()
+  {
+    pieces.ForEach(piece => piece.isEnabled = false);
+    Debug.Log("Board pieces disabled");
+  }
+
+  public void EnablePieces()
+  {
+    pieces.ForEach(piece => piece.isEnabled = true);
+    Debug.Log("Board pieces enabled");
+  }
+
+  public void ActivatePlayerPieces(TeamColor color)
   {
     mustCapture = false;
 
@@ -105,7 +117,7 @@ public class Board : MonoBehaviour
           {
             controller.EndGame();
           }
-     
+
           ClearAllMoves();
 
           if (piece.HasReachedOppositeEndOfBoard() && !piece.isKing)

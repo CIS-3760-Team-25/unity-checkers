@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+  public bool isEnabled;
   public bool isActive;
   public bool isKing;
   public Mesh kingMesh;
@@ -24,26 +25,33 @@ public class Piece : MonoBehaviour
 
   void OnMouseDown()
   {
-    board.SelectPiece(this);
+    if (isEnabled)
+    {
+      board.SelectPiece(this);
 
-    currentMove = new PieceMove();
-    currentMove.start = gameObject.transform.position;
-    currentMove.zCoord = Camera.main.WorldToScreenPoint(currentMove.start).z;
-    currentMove.offset = currentMove.start - GetCurrentPosition();
+      currentMove = new PieceMove();
+      currentMove.start = gameObject.transform.position;
+      currentMove.zCoord = Camera.main.WorldToScreenPoint(currentMove.start).z;
+      currentMove.offset = currentMove.start - GetCurrentPosition();
 
-    Debug.Log($"{gameObject.name} clicked at {currentPosition}");
+      Debug.Log($"{gameObject.name} clicked at {currentPosition}");
+    }
   }
 
   void OnMouseDrag()
   {
-    transform.position = GetCurrentPosition() + currentMove.offset;
+    if (isEnabled)
+      transform.position = GetCurrentPosition() + currentMove.offset;
   }
 
   void OnMouseUp()
   {
-    board.DeselectPiece(this);
+    if (isEnabled)
+    {
+      board.DeselectPiece(this);
 
-    Debug.Log($"{gameObject.name} released at {currentPosition}");
+      Debug.Log($"{gameObject.name} released at {currentPosition}");
+    }
   }
 
   public void SetBoard(Board gameBoard)

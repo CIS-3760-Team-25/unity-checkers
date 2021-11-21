@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
   void Start()
   {
     board.SetController(this);
+    board.DisablePieces();
   }
 
   void Update()
@@ -44,13 +45,15 @@ public class GameController : MonoBehaviour
   {
     // Called from PlayerSelect
     activePlayer = TeamColor.BLACK;
-    board.EnablePieces(activePlayer);
+
+    board.EnablePieces();
+    board.ActivatePlayerPieces(activePlayer);
   }
 
   public void EndGame()
   {
     gameOverScreen.Setup(activePlayer);
-
+    board.DisablePieces();
   }
   public void EndGame(TeamColor winner)
   {
@@ -78,7 +81,7 @@ public class GameController : MonoBehaviour
     Debug.Log($"{activePlayer} turn ended");
 
     activePlayer = (TeamColor)((int)activePlayer * (-1));
-    board.EnablePieces(activePlayer);
+    board.ActivatePlayerPieces(activePlayer);
     // Temporarily disable camera rotation
     // cameraController.Rotate();
   }
