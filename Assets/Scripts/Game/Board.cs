@@ -202,9 +202,10 @@ public class Board : MonoBehaviour
   private bool IsGamePlayable()
   {
     int moves = 0;
+    //Check if opponent has any moves left
     pieces.ForEach(piece =>
     {
-    if (piece.color != controller.activePlayer && (piece.moveDestinations.Count > 0 || piece.captureDestinations.Count > 0))
+      if (piece.color != controller.activePlayer && (piece.moveDestinations.Count > 0 || piece.captureDestinations.Count > 0))
         moves++;
     });
     return moves > 0 ? true : false;
