@@ -35,6 +35,11 @@ public class PlayerSelectScreen : MonoBehaviour
     gameObject.SetActive(true);
   }
 
+  public void HidePlayerSelect()
+  {
+    gameObject.SetActive(false);
+  }
+
   public void CreateGameRecord()
   {
     if (ArePlayersValid())
@@ -52,7 +57,7 @@ public class PlayerSelectScreen : MonoBehaviour
         }
       );
 
-      gameObject.SetActive(false);
+      HidePlayerSelect();
     }
   }
 
