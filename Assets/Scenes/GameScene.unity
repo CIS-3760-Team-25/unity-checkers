@@ -6593,7 +6593,7 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier:
   statsManager: {fileID: 442360888}
-  gameController: {fileID: 0}
+  gameController: {fileID: 2032790537}
   playerOneName: {fileID: 1435669161}
   playerOneEmail: {fileID: 303095331}
   playerTwoName: {fileID: 1507198038}
