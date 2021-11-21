@@ -9,9 +9,9 @@ public class StatsSummary
 {
   public int gamesPlayed;
   public int wins;
+  public int losses;
   public int draws;
   public int incompletes;
-  public int losses;
   public int totalCaptures;
   public int totalTime;
   public double avgGameLength;
