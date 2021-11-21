@@ -1,7 +1,6 @@
 using System;
 using System.Runtime;
 using System.Runtime.Serialization;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -29,12 +28,12 @@ public class GameRecord
     gameId = Guid.NewGuid().ToString();
   }
 
-  public void setPlayerOne(string name, string email)
+  public void SetPlayerOne(string name, string email)
   {
     playerOne = new PlayerRecord(name, email);
   }
 
-  public void setPlayerTwo(string name, string email)
+  public void SetPlayerTwo(string name, string email)
   {
     playerTwo = new PlayerRecord(name, email);
   }

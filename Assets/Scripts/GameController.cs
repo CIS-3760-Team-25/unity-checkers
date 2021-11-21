@@ -11,6 +11,10 @@ public class GameController : MonoBehaviour
 
   private CameraController cameraController;
 
+  [SerializeField]
+  private StatsManager statsManager;
+  private GameRecord gameRecord;
+
   void Awake()
   {
     cameraController = GetComponent<CameraController>();
@@ -20,7 +24,6 @@ public class GameController : MonoBehaviour
   void Start()
   {
     board.SetController(this);
-    StartGame(); // Should be called after Play button is clicked
   }
 
   void Update()
@@ -32,8 +35,14 @@ public class GameController : MonoBehaviour
       EndGame(TeamColor.WHITE);
   }
 
+  public void SetGameRecord(GameRecord record)
+  {
+    gameRecord = record;
+  }
+
   public void StartGame()
   {
+    // Called from PlayerSelect
     activePlayer = TeamColor.BLACK;
     board.EnablePieces(activePlayer);
   }
@@ -47,6 +56,17 @@ public class GameController : MonoBehaviour
   {
     // This function should determine winner, not accept param
     gameOverScreen.Setup(winner);
+
+    GameOutcome gameOutcome = new GameOutcome(gameRecord.gameId);
+    gameOutcome.SetOutcome("draw");
+    gameOutcome.SetPlayerOneCaptures(0);
+    gameOutcome.SetPlayerTwoCaptures(1);
+
+    statsManager.EndGame(gameOutcome.ToJson(), result =>
+      {
+        Debug.Log($"Game outcome recorded: {result}");
+      }
+    );
   }
 
   public void StartTurn()
