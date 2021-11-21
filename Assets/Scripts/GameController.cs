@@ -24,7 +24,6 @@ public class GameController : MonoBehaviour
   void Start()
   {
     board.SetController(this);
-    StartGame(); // Should be called after Play button is clicked
   }
 
   void Update()
@@ -43,6 +42,7 @@ public class GameController : MonoBehaviour
 
   public void StartGame()
   {
+    // Called from PlayerSelect
     activePlayer = TeamColor.BLACK;
     board.EnablePieces(activePlayer);
   }

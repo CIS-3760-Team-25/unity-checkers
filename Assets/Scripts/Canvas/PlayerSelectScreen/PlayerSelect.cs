@@ -44,6 +44,7 @@ public class PlayerSelect : MonoBehaviour
       gameRecord.SetPlayerTwo(playerTwoName.text, playerTwoEmail.text);
 
       gameController.SetGameRecord(gameRecord);
+      gameController.StartGame();
 
       statsManager.StartGame(gameRecord.ToJson(), result =>
         {
