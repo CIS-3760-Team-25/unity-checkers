@@ -27,6 +27,11 @@ public class PlayerStatsScreen : MonoBehaviour
     gameObject.SetActive(true);
   }
 
+  public void HidePlayerStats()
+  {
+    gameObject.SetActive(false);
+  }
+
   public void HideSearchErrors()
   {
     searchError.text = "";
