@@ -47,6 +47,11 @@ public class GameController : MonoBehaviour
     board.EnablePieces(activePlayer);
   }
 
+  public void EndGame()
+  {
+    gameOverScreen.Setup(activePlayer);
+
+  }
   public void EndGame(TeamColor winner)
   {
     // This function should determine winner, not accept param
