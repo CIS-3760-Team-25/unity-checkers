@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour
 
   public void StartGame()
   {
-    // Called from PlayerSelect
+    // Called from PlayerSelectScreen
     activePlayer = TeamColor.BLACK;
 
     board.EnablePieces();

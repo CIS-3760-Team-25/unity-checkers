@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStatsScreen : MonoBehaviour
 {
   [SerializeField]
   private StatsManager statsManager;

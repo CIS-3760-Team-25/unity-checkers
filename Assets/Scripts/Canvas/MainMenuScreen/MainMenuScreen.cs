@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour
+public class MainMenuScreen : MonoBehaviour
 {
   public void ShowMainMenu()
   {
