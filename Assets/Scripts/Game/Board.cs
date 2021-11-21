@@ -77,7 +77,7 @@ public class Board : MonoBehaviour
 
           if (piece.HasReachedOppositeEndOfBoard() && !piece.isKing)
             piece.PromoteToKing();
-          
+          AlignPieceInSquare(piece);
           FindAllValidMoves();
 
           if (IsGamePlayable())
@@ -87,8 +87,9 @@ public class Board : MonoBehaviour
           else
           {
             // End game
-            // controller.EndGame();
+            controller.EndGame();
           }
+
           break;
 
         case MoveOutcome.INVALID:
@@ -96,9 +97,16 @@ public class Board : MonoBehaviour
           break;
 
         case MoveOutcome.CAPTURE:
-          ClearAllMoves();
 
           AlignPieceInSquare(piece);
+          FindAllValidMoves();
+
+          if (!IsGamePlayable())
+          {
+            controller.EndGame();
+          }
+     
+          ClearAllMoves();
 
           if (piece.HasReachedOppositeEndOfBoard() && !piece.isKing)
             piece.PromoteToKing();
@@ -193,10 +201,13 @@ public class Board : MonoBehaviour
 
   private bool IsGamePlayable()
   {
-    /* Make sure each team has pieces
-     * Make sure each Piece in layout has valid destinations
-     */
-    return true;
+    int moves = 0;
+    pieces.ForEach(piece =>
+    {
+    if (piece.color != controller.activePlayer && (piece.moveDestinations.Count > 0 || piece.captureDestinations.Count > 0))
+        moves++;
+    });
+    return moves > 0 ? true : false;
   }
 
   private void UpdatePiecePosition(Piece piece)
