@@ -18,11 +18,6 @@ public class Piece : MonoBehaviour
   private Board board;
   private PieceMove currentMove;
 
-  void Start()
-  {
-    gameObject.transform.SetParent(board.transform);
-  }
-
   void OnMouseDown()
   {
     if (isEnabled)
@@ -57,6 +52,7 @@ public class Piece : MonoBehaviour
   public void SetBoard(Board gameBoard)
   {
     board = gameBoard;
+    gameObject.transform.SetParent(board.transform);
   }
 
   public void PromoteToKing()

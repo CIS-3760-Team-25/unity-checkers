@@ -12,6 +12,7 @@ public class PlayerStatsScreen : MonoBehaviour
   public InputField searchEmail;
   public Text searchError;
 
+  public Text statsEmail;
   public Text gamesPlayed;
   public Text wins;
   public Text losses;
@@ -55,8 +56,7 @@ public class PlayerStatsScreen : MonoBehaviour
         {
           StatsResponse response = JsonUtility.FromJson<StatsResponse>(result);
 
-          Debug.Log($"Player Stats Data: {response.data.ToJson()}");
-          Debug.Log($"Player Stats Error: {response.error}");
+          Debug.Log($"Player Stats Retrieved: {response.ToJson()}");
 
           if (response.error.Length > 0)
           {
@@ -79,6 +79,7 @@ public class PlayerStatsScreen : MonoBehaviour
 
   private void DisplayStatsSummary(StatsSummary stats)
   {
+    statsEmail.text = searchEmail.text;
     gamesPlayed.text = stats.gamesPlayed.ToString();
     wins.text = stats.wins.ToString();
     losses.text = stats.losses.ToString();

@@ -6,35 +6,33 @@ using UnityEngine.SceneManagement;
 
 public class GameOverScreen : MonoBehaviour
 {
-  public Text winnerTxt;
+  public Text winner;
 
-  public void Setup(TeamColor winner)
+  public void ShowGameOver()
   {
     gameObject.SetActive(true);
+  }
 
-    switch (winner)
+  public void HideGameOver()
+  {
+    gameObject.SetActive(false);
+  }
+
+  public void SetWinner(TeamColor color)
+  {
+    switch (color)
     {
       case TeamColor.BLACK:
-        winnerTxt.text = "Black Won!";
+        winner.text = "Black Won";
         break;
 
       case TeamColor.WHITE:
-        winnerTxt.text = "White Won!";
+        winner.text = "White Won";
         break;
 
       default:
-        winnerTxt.text = "Tie";
+        winner.text = "Draw";
         break;
     }
-  }
-
-  public void MainMenuButton()
-  {
-    SceneManager.LoadScene("MenuScene");
-  }
-
-  public void RestartButton()
-  {
-    SceneManager.LoadScene("GameScene");
   }
 }
