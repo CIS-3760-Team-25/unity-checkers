@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour
+public class MainMenuScreen : MonoBehaviour
 {
   public void ShowMainMenu()
   {
@@ -10,5 +10,10 @@ public class MainMenu : MonoBehaviour
   public void HideMainMenu()
   {
     gameObject.SetActive(false);
+  }
+
+  public void OpenGameRules()
+  {
+    Application.OpenURL("https://checkers.fandom.com/wiki/Rules_of_Checkers");
   }
 }

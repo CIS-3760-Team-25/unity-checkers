@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+  [SerializeField]
+  private Mesh defaultMesh;
+
+  [SerializeField]
+  private Mesh kingMesh;
+
+  public bool isEnabled;
   public bool isActive;
   public bool isKing;
-  public Mesh kingMesh;
   public TeamColor color;
   public Vector2Int startPosition;
   public Vector2Int currentPosition;
@@ -17,38 +23,47 @@ public class Piece : MonoBehaviour
   private Board board;
   private PieceMove currentMove;
 
-  void Start()
-  {
-    gameObject.transform.SetParent(board.transform);
-  }
-
   void OnMouseDown()
   {
-    board.SelectPiece(this);
+    if (isEnabled)
+    {
+      board.SelectPiece(this);
 
-    currentMove = new PieceMove();
-    currentMove.start = gameObject.transform.position;
-    currentMove.zCoord = Camera.main.WorldToScreenPoint(currentMove.start).z;
-    currentMove.offset = currentMove.start - GetCurrentPosition();
+      currentMove = new PieceMove();
+      currentMove.start = gameObject.transform.position;
+      currentMove.zCoord = Camera.main.WorldToScreenPoint(currentMove.start).z;
+      currentMove.offset = currentMove.start - GetCurrentPosition();
 
-    Debug.Log($"{gameObject.name} clicked at {currentPosition}");
+      Debug.Log($"{gameObject.name} clicked at {currentPosition}");
+    }
   }
 
   void OnMouseDrag()
   {
-    transform.position = GetCurrentPosition() + currentMove.offset;
+    if (isEnabled)
+      transform.position = GetCurrentPosition() + currentMove.offset;
   }
 
   void OnMouseUp()
   {
-    board.DeselectPiece(this);
+    if (isEnabled)
+    {
+      board.DeselectPiece(this);
 
-    Debug.Log($"{gameObject.name} released at {currentPosition}");
+      Debug.Log($"{gameObject.name} released at {currentPosition}");
+    }
   }
 
   public void SetBoard(Board gameBoard)
   {
     board = gameBoard;
+    gameObject.transform.SetParent(board.transform);
+  }
+
+  public void ResetMesh()
+  {
+    this.isKing = false;
+    this.gameObject.GetComponent<MeshFilter>().mesh = defaultMesh;
   }
 
   public void PromoteToKing()

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStatsScreen : MonoBehaviour
 {
   [SerializeField]
   private StatsManager statsManager;
@@ -11,6 +11,15 @@ public class PlayerStats : MonoBehaviour
 
   public InputField searchEmail;
   public Text searchError;
+
+  public Text statsEmail;
+  public Text gamesPlayed;
+  public Text wins;
+  public Text losses;
+  public Text draws;
+  public Text incompletes;
+  public Text captures;
+  public Text timePlayed;
 
   public void ShowPlayerSearch()
   {
@@ -25,6 +34,11 @@ public class PlayerStats : MonoBehaviour
   public void ShowPlayerStats()
   {
     gameObject.SetActive(true);
+  }
+
+  public void HidePlayerStats()
+  {
+    gameObject.SetActive(false);
   }
 
   public void HideSearchErrors()
@@ -42,8 +56,7 @@ public class PlayerStats : MonoBehaviour
         {
           StatsResponse response = JsonUtility.FromJson<StatsResponse>(result);
 
-          Debug.Log($"Player Stats Data: {response.data.ToJson()}");
-          Debug.Log($"Player Stats Error: {response.error}");
+          Debug.Log($"Player Stats Retrieved: {response.ToJson()}");
 
           if (response.error.Length > 0)
           {
@@ -66,6 +79,13 @@ public class PlayerStats : MonoBehaviour
 
   private void DisplayStatsSummary(StatsSummary stats)
   {
-
+    statsEmail.text = searchEmail.text;
+    gamesPlayed.text = stats.gamesPlayed.ToString();
+    wins.text = stats.wins.ToString();
+    losses.text = stats.losses.ToString();
+    draws.text = stats.draws.ToString();
+    incompletes.text = stats.incompletes.ToString();
+    captures.text = stats.totalCaptures.ToString();
+    timePlayed.text = $"{stats.totalTime / 1000}s";
   }
 }

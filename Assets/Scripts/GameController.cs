@@ -29,10 +29,17 @@ public class GameController : MonoBehaviour
   void Update()
   {
     // Temporary triggers for game over
-    if (Input.GetKeyDown("z"))
-      EndGame(TeamColor.BLACK);
-    if (Input.GetKeyDown("x"))
-      EndGame(TeamColor.WHITE);
+    if (Input.GetKeyDown("9"))
+    {
+      activePlayer = TeamColor.BLACK;
+      EndGame();
+    }
+
+    if (Input.GetKeyDown("0"))
+    {
+      activePlayer = TeamColor.WHITE;
+      EndGame();
+    }
   }
 
   public void SetGameRecord(GameRecord record)
@@ -42,31 +49,40 @@ public class GameController : MonoBehaviour
 
   public void StartGame()
   {
-    // Called from PlayerSelect
+    // Called from PlayerSelectScreen
     activePlayer = TeamColor.BLACK;
-    board.EnablePieces(activePlayer);
+
+    board.InitializeBoard();
+    board.ActivatePlayerPieces(activePlayer);
+    board.EnablePieces();
   }
 
   public void EndGame()
   {
-    gameOverScreen.Setup(activePlayer);
-
-  }
-  public void EndGame(TeamColor winner)
-  {
-    // This function should determine winner, not accept param
-    gameOverScreen.Setup(winner);
+    gameOverScreen.ShowGameOver();
+    gameOverScreen.SetWinner(activePlayer);
 
     GameOutcome gameOutcome = new GameOutcome(gameRecord.gameId);
-    gameOutcome.SetOutcome("draw");
-    gameOutcome.SetPlayerOneCaptures(0);
-    gameOutcome.SetPlayerTwoCaptures(1);
+
+    gameOutcome.SetPlayerOneCaptures(board.playerOneCaptures);
+    gameOutcome.SetPlayerTwoCaptures(board.playerTwoCaptures);
+
+    if (activePlayer == TeamColor.BLACK)
+      gameOutcome.SetOutcome("player_one_win");
+    else if (activePlayer == TeamColor.WHITE)
+      gameOutcome.SetOutcome("player_two_win");
+    else
+      gameOutcome.SetOutcome("draw");
+
+    Debug.Log($"Game Outcome: {gameOutcome.ToJson()}");
 
     statsManager.EndGame(gameOutcome.ToJson(), result =>
       {
-        Debug.Log($"Game outcome recorded: {result}");
+        Debug.Log($"Game Outcome Recorded: {result}");
       }
     );
+
+    board.DisablePieces();
   }
 
   public void StartTurn()
@@ -78,7 +94,7 @@ public class GameController : MonoBehaviour
     Debug.Log($"{activePlayer} turn ended");
 
     activePlayer = (TeamColor)((int)activePlayer * (-1));
-    board.EnablePieces(activePlayer);
+    board.ActivatePlayerPieces(activePlayer);
     // Temporarily disable camera rotation
     // cameraController.Rotate();
   }

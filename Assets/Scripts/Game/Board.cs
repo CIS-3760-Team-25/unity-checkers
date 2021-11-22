@@ -5,16 +5,19 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-  public Mesh kingMesh; 
-  private Piece[,] layout;
-  private List<Piece> pieces;
-  private GameController controller;
 
   [SerializeField]
   private GameObject whiteIndicator;
 
   [SerializeField]
   private GameObject blackIndicator;
+
+  public int playerOneCaptures = 0;
+  public int playerTwoCaptures = 0;
+
+  private List<Piece> pieces;
+  private Piece[,] layout;
+  private GameController controller;
 
   private List<GameObject> activeIndicators;
 
@@ -25,22 +28,27 @@ public class Board : MonoBehaviour
     VALID, INVALID, CAPTURE
   }
 
-  void Awake()
-  {
-    InitializeBoard();
-  }
-
-  void OnValidate()
-  {
-    InitializeBoard();
-  }
-
   public void SetController(GameController gameController)
   {
     controller = gameController;
   }
 
-  public void EnablePieces(TeamColor color)
+  public void DisablePieces()
+  {
+    pieces.ForEach(piece => piece.isEnabled = false);
+    Debug.Log("Board pieces disabled");
+  }
+
+  public void EnablePieces()
+  {
+    if (pieces != null)
+    {
+      pieces.ForEach(piece => piece.isEnabled = true);
+      Debug.Log("Board pieces enabled");
+    }
+  }
+
+  public void ActivatePlayerPieces(TeamColor color)
   {
     mustCapture = false;
 
@@ -105,7 +113,7 @@ public class Board : MonoBehaviour
           {
             controller.EndGame();
           }
-     
+
           ClearAllMoves();
 
           if (piece.HasReachedOppositeEndOfBoard() && !piece.isKing)
@@ -128,27 +136,33 @@ public class Board : MonoBehaviour
     }
   }
 
-  private void InitializeBoard()
+  public void InitializeBoard()
   {
+    playerOneCaptures = 0;
+    playerTwoCaptures = 0;
+
     layout = new Piece[8, 8];
     // Find all piece prefabs
     pieces = new List<Piece>(
-      (Piece[])FindObjectsOfType(typeof(Piece))
+      (Piece[])FindObjectsOfTypeAll(typeof(Piece))
     );
 
     activeIndicators = new List<GameObject>();
 
     pieces.ForEach((Piece piece) =>
       {
+        piece.gameObject.SetActive(true);
         piece.currentPosition = piece.startPosition;
         piece.previousPosition = piece.startPosition;
         piece.moveDestinations = new List<PieceDestination>();
         piece.captureDestinations = new List<PieceDestination>();
-        piece.kingMesh = kingMesh;
         // Add pieces to board model
         layout[piece.startPosition.x, piece.startPosition.y] = piece;
         // Connect piece to board
         piece.SetBoard(this);
+        piece.ResetMesh();
+
+        AlignPieceInSquare(piece);
       }
     );
 
@@ -195,6 +209,11 @@ public class Board : MonoBehaviour
     layout[piece.currentPosition.x, piece.currentPosition.y] = null;
     piece.gameObject.SetActive(false);
     pieces.Remove(piece);
+
+    if (piece.color == TeamColor.BLACK)
+      playerTwoCaptures += 1;
+    else
+      playerOneCaptures += 1;
 
     Debug.Log($"Removed piece at {piece.currentPosition}");
   }

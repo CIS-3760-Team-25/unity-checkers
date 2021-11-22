@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerSelect : MonoBehaviour
+public class PlayerSelectScreen : MonoBehaviour
 {
   [SerializeField]
   private StatsManager statsManager;
@@ -35,6 +35,11 @@ public class PlayerSelect : MonoBehaviour
     gameObject.SetActive(true);
   }
 
+  public void HidePlayerSelect()
+  {
+    gameObject.SetActive(false);
+  }
+
   public void CreateGameRecord()
   {
     if (ArePlayersValid())
@@ -46,13 +51,15 @@ public class PlayerSelect : MonoBehaviour
       gameController.SetGameRecord(gameRecord);
       gameController.StartGame();
 
+      Debug.Log($"Game Record: {gameRecord.ToJson()}");
+
       statsManager.StartGame(gameRecord.ToJson(), result =>
         {
-          Debug.Log($"Game record created: {result}");
+          Debug.Log($"Game Record Created: {result}");
         }
       );
 
-      gameObject.SetActive(false);
+      HidePlayerSelect();
     }
   }
 
