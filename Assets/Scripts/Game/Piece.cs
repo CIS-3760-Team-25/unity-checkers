@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+  [SerializeField]
+  private Mesh defaultMesh;
+
+  [SerializeField]
+  private Mesh kingMesh;
+
   public bool isEnabled;
   public bool isActive;
   public bool isKing;
-  public Mesh kingMesh;
   public TeamColor color;
   public Vector2Int startPosition;
   public Vector2Int currentPosition;
@@ -53,6 +58,12 @@ public class Piece : MonoBehaviour
   {
     board = gameBoard;
     gameObject.transform.SetParent(board.transform);
+  }
+
+  public void ResetMesh()
+  {
+    this.isKing = false;
+    this.gameObject.GetComponent<MeshFilter>().mesh = defaultMesh;
   }
 
   public void PromoteToKing()

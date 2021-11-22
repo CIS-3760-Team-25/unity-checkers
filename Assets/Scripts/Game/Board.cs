@@ -12,9 +12,6 @@ public class Board : MonoBehaviour
   [SerializeField]
   private GameObject blackIndicator;
 
-  [SerializeField]
-  private Mesh kingMesh;
-
   public int playerOneCaptures = 0;
   public int playerTwoCaptures = 0;
 
@@ -159,11 +156,12 @@ public class Board : MonoBehaviour
         piece.previousPosition = piece.startPosition;
         piece.moveDestinations = new List<PieceDestination>();
         piece.captureDestinations = new List<PieceDestination>();
-        piece.kingMesh = kingMesh;
         // Add pieces to board model
         layout[piece.startPosition.x, piece.startPosition.y] = piece;
         // Connect piece to board
         piece.SetBoard(this);
+        piece.ResetMesh();
+
         AlignPieceInSquare(piece);
       }
     );
