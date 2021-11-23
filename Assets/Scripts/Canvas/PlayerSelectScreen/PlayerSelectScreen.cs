@@ -7,6 +7,9 @@ public class PlayerSelectScreen : MonoBehaviour
   private StatsManager statsManager;
 
   [SerializeField]
+  private GameInfoOverlay gameInfoOverlay;
+
+  [SerializeField]
   private GameController gameController;
 
   public InputField playerOneName;
@@ -59,6 +62,8 @@ public class PlayerSelectScreen : MonoBehaviour
         }
       );
 
+      gameInfoOverlay.ShowGameOverlay();
+      gameInfoOverlay.ResetOverlay();
       HidePlayerSelect();
     }
   }
