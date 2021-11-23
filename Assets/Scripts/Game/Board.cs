@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+  [SerializeField]
+  private GameInfoOverlay gameInfoOverlay;
 
   [SerializeField]
   private GameObject whiteIndicator;
@@ -211,9 +213,15 @@ public class Board : MonoBehaviour
     pieces.Remove(piece);
 
     if (piece.color == TeamColor.BLACK)
+    {
       playerTwoCaptures += 1;
+      gameInfoOverlay.SetBlackCaptures(playerTwoCaptures);
+    }
     else
+    {
       playerOneCaptures += 1;
+      gameInfoOverlay.SetWhiteCaptures(playerOneCaptures);
+    }
 
     Debug.Log($"Removed piece at {piece.currentPosition}");
   }

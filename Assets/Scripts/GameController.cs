@@ -7,6 +7,9 @@ public class GameController : MonoBehaviour
   public TeamColor activePlayer;
 
   [SerializeField]
+  private GameInfoOverlay gameInfoOverlay;
+
+  [SerializeField]
   private GameOverScreen gameOverScreen;
 
   private CameraController cameraController;
@@ -83,6 +86,7 @@ public class GameController : MonoBehaviour
     );
 
     board.DisablePieces();
+    gameInfoOverlay.HideGameOverlay();
   }
 
   public void StartTurn()
@@ -95,6 +99,7 @@ public class GameController : MonoBehaviour
 
     activePlayer = (TeamColor)((int)activePlayer * (-1));
     board.ActivatePlayerPieces(activePlayer);
+    gameInfoOverlay.SwitchTurn();
     // Temporarily disable camera rotation
     // cameraController.Rotate();
   }

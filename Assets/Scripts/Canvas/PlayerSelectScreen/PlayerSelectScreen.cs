@@ -58,8 +58,6 @@ public class PlayerSelectScreen : MonoBehaviour
           Debug.Log($"Game Record Created: {result}");
         }
       );
-
-      HidePlayerSelect();
     }
   }
 
