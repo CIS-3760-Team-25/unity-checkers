@@ -22,6 +22,7 @@ public class Piece : MonoBehaviour
 
   private Board board;
   private PieceMove currentMove;
+  private float heightToAddOnPickup = 1;
 
   void OnMouseDown()
   {
@@ -41,15 +42,16 @@ public class Piece : MonoBehaviour
   void OnMouseDrag()
   {
     if (isEnabled)
-      transform.position = GetCurrentPosition() + currentMove.offset;
+      transform.position = GetCurrentPosition() + currentMove.offset + new Vector3(0,heightToAddOnPickup,0);
   }
 
   void OnMouseUp()
   {
     if (isEnabled)
     {
-      board.DeselectPiece(this);
-
+      if (board.DeselectPiece(this))
+        transform.position -= new Vector3(0, heightToAddOnPickup, 0);
+      
       Debug.Log($"{gameObject.name} released at {currentPosition}");
     }
   }

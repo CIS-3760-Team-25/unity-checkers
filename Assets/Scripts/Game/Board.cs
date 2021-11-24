@@ -73,8 +73,9 @@ public class Board : MonoBehaviour
       DisplayIndicators(piece);
   }
 
-  public void DeselectPiece(Piece piece)
+  public bool DeselectPiece(Piece piece)
   {
+    bool isAllowed = true;
     DestroyIndicators();
     UpdatePiecePosition(piece);
 
@@ -104,6 +105,7 @@ public class Board : MonoBehaviour
 
         case MoveOutcome.INVALID:
           piece.UndoMove();
+          isAllowed = false;
           break;
 
         case MoveOutcome.CAPTURE:
@@ -135,7 +137,9 @@ public class Board : MonoBehaviour
     else
     {
       piece.UndoMove();
+      isAllowed = false;
     }
+    return isAllowed;
   }
 
   public void InitializeBoard()
